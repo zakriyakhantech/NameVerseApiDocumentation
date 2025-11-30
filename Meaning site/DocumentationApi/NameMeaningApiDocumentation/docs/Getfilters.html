@@ -1,0 +1,242 @@
+<div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+
+  <!-- Endpoint Header -->
+  <div class="bg-gradient-to-r from-cyan-600 to-blue-600 p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-2xl font-bold text-white">Get Filter Options</h2>
+      <a href="/getfilteroptions" class="bg-white text-cyan-600 px-4 py-2 rounded-lg hover:bg-cyan-50 transition-colors font-semibold text-sm">
+        <i class="fas fa-flask mr-2"></i>Live Testing
+      </a>
+    </div>
+    <div class="flex items-center space-x-3">
+      <span class="bg-green-500 text-white px-3 py-1 rounded-md font-bold text-sm">GET</span>
+      <code class="text-white text-lg font-mono">/api/filters</code>
+    </div>
+    <p class="text-cyan-100 mt-3">
+      Retrieve all available filter options including religions, genders, themes, origins, and alphabets for filtering names.
+    </p>
+  </div>
+
+  <div class="p-6">
+
+    <!-- Description -->
+    <div class="mb-6">
+      <h3 class="text-lg font-bold text-gray-900 mb-3">Description</h3>
+      <p class="text-gray-600 leading-relaxed">
+        This endpoint returns all available filter options that can be used across the API. It provides the complete list 
+        of religions, genders, themes, origins, and alphabet letters that you can use to filter name queries. This is 
+        particularly useful for building dynamic filter UIs and ensuring your filters match the available options.
+      </p>
+    </div>
+
+    <!-- Parameters -->
+    <div class="mb-6">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Query Parameters</h3>
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <div class="flex items-center space-x-2">
+          <i class="fas fa-info-circle text-blue-600"></i>
+          <p class="text-sm text-blue-800 font-semibold">No parameters required</p>
+        </div>
+        <p class="text-sm text-blue-700 mt-2">
+          This endpoint does not accept any query parameters. Simply call the endpoint to get all filter options.
+        </p>
+      </div>
+    </div>
+
+    <!-- Request Example -->
+    <div class="mb-6">
+      <h3 class="text-lg font-bold text-gray-900 mb-3">Request Example</h3>
+      <div class="code-block" style="background: #1e293b; border-radius: 8px; padding: 16px; overflow-x: auto;">
+        <code style="color: #10b981; font-family: 'Courier New', monospace; font-size: 14px;">GET https://namverse-api.vercel.app/api/filters</code>
+      </div>
+    </div>
+
+    <!-- Response -->
+    <div class="mb-6">
+      <h3 class="text-lg font-bold text-gray-900 mb-3">Response</h3>
+
+      <!-- Success Response -->
+      <div class="mb-4">
+        <div class="flex items-center space-x-2 mb-2">
+          <span class="bg-green-500 text-white px-3 py-1 rounded text-sm font-bold">200</span>
+          <span class="text-sm font-semibold text-gray-700">Success</span>
+        </div>
+        <div class="code-block" style="background: #1e293b; border-radius: 8px; padding: 16px; overflow-x: auto;">
+<pre><code style="color: #10b981; font-family: 'Courier New', monospace; font-size: 14px;">{
+  "success": true,
+  "data": {
+    "religions": [
+      {
+        "value": "christian",
+        "label": "Christian",
+        "count": 1247
+      },
+      {
+        "value": "islamic",
+        "label": "Islamic",
+        "count": 1892
+      },
+      {
+        "value": "hindu",
+        "label": "Hindu",
+        "count": 1653
+      }
+    ],
+    "genders": [
+      {
+        "value": "boy",
+        "label": "Boy",
+        "count": 2341
+      },
+      {
+        "value": "girl",
+        "label": "Girl",
+        "count": 2451
+      }
+    ],
+    "themes": [
+      {
+        "value": "beauty",
+        "label": "Beauty",
+        "count": 423
+      },
+      {
+        "value": "strength",
+        "label": "Strength",
+        "count": 387
+      },
+      {
+        "value": "wisdom",
+        "label": "Wisdom",
+        "count": 312
+      },
+      {
+        "value": "nature",
+        "label": "Nature",
+        "count": 456
+      },
+      {
+        "value": "royal",
+        "label": "Royal",
+        "count": 289
+      }
+    ],
+    "origins": [
+      {
+        "value": "arabic",
+        "label": "Arabic",
+        "count": 1523
+      },
+      {
+        "value": "hebrew",
+        "label": "Hebrew",
+        "count": 891
+      },
+      {
+        "value": "sanskrit",
+        "label": "Sanskrit",
+        "count": 1124
+      },
+      {
+        "value": "greek",
+        "label": "Greek",
+        "count": 678
+      }
+    ],
+    "alphabets": [
+      "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", 
+      "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", 
+      "U", "V", "W", "X", "Y", "Z"
+    ]
+  }
+}</code></pre>
+        </div>
+      </div>
+
+      <!-- Error Response -->
+      <div>
+        <div class="flex items-center space-x-2 mb-2">
+          <span class="bg-red-500 text-white px-3 py-1 rounded text-sm font-bold">500</span>
+          <span class="text-sm font-semibold text-gray-700">Internal Server Error</span>
+        </div>
+        <div class="code-block" style="background: #1e293b; border-radius: 8px; padding: 16px; overflow-x: auto;">
+<pre><code style="color: #10b981; font-family: 'Courier New', monospace; font-size: 14px;">{
+  "error": "Internal server error",
+  "message": "Failed to fetch filter options"
+}</code></pre>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Use Cases -->
+    <div class="mb-6">
+      <h3 class="text-lg font-bold text-gray-900 mb-3">Use Cases</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 rounded-lg p-4">
+          <div class="flex items-center space-x-2 mb-2">
+            <i class="fas fa-sliders-h text-purple-600"></i>
+            <h4 class="font-semibold text-purple-900">Dynamic Filter UI</h4>
+          </div>
+          <p class="text-sm text-purple-700">Build dropdown menus and filter interfaces with live data</p>
+        </div>
+        
+        <div class="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-lg p-4">
+          <div class="flex items-center space-x-2 mb-2">
+            <i class="fas fa-check-circle text-blue-600"></i>
+            <h4 class="font-semibold text-blue-900">Validation</h4>
+          </div>
+          <p class="text-sm text-blue-700">Validate user input against available options</p>
+        </div>
+        
+        <div class="bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-lg p-4">
+          <div class="flex items-center space-x-2 mb-2">
+            <i class="fas fa-chart-bar text-green-600"></i>
+            <h4 class="font-semibold text-green-900">Statistics</h4>
+          </div>
+          <p class="text-sm text-green-700">Show counts for each filter category</p>
+        </div>
+        
+        <div class="bg-gradient-to-br from-orange-50 to-orange-100 border border-orange-200 rounded-lg p-4">
+          <div class="flex items-center space-x-2 mb-2">
+            <i class="fas fa-sync-alt text-orange-600"></i>
+            <h4 class="font-semibold text-orange-900">Keep UI Updated</h4>
+          </div>
+          <p class="text-sm text-orange-700">Ensure filters stay in sync with database</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Response Fields -->
+    <div>
+      <h3 class="text-lg font-bold text-gray-900 mb-3">Response Fields</h3>
+      <div class="space-y-3">
+        <div class="border border-gray-200 rounded-lg p-4">
+          <code class="text-cyan-600 font-semibold">religions</code>
+          <p class="text-sm text-gray-600 mt-1">Array of available religion filters with counts</p>
+        </div>
+        
+        <div class="border border-gray-200 rounded-lg p-4">
+          <code class="text-cyan-600 font-semibold">genders</code>
+          <p class="text-sm text-gray-600 mt-1">Array of available gender filters with counts</p>
+        </div>
+        
+        <div class="border border-gray-200 rounded-lg p-4">
+          <code class="text-cyan-600 font-semibold">themes</code>
+          <p class="text-sm text-gray-600 mt-1">Array of available theme categories with counts</p>
+        </div>
+        
+        <div class="border border-gray-200 rounded-lg p-4">
+          <code class="text-cyan-600 font-semibold">origins</code>
+          <p class="text-sm text-gray-600 mt-1">Array of available name origins with counts</p>
+        </div>
+        
+        <div class="border border-gray-200 rounded-lg p-4">
+          <code class="text-cyan-600 font-semibold">alphabets</code>
+          <p class="text-sm text-gray-600 mt-1">Array of all available starting letters (A-Z)</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

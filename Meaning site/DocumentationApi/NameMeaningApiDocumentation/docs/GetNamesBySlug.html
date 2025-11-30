@@ -1,0 +1,109 @@
+<div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+
+  <!-- Endpoint Header -->
+  <div class="bg-gradient-to-r from-indigo-600 to-blue-600 p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-2xl font-bold text-white">Get Name by Slug</h2>
+      <a href="/names/islamic/muhammad" class="bg-white text-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-50 transition-colors font-semibold text-sm">
+        <i class="fas fa-flask mr-2"></i>Live Testing
+      </a>
+    </div>
+    <div class="flex items-center space-x-3">
+      <span class="bg-green-500 text-white px-3 py-1 rounded-md font-bold text-sm">GET</span>
+      <code class="text-white text-lg font-mono">/api/names/{slug}</code>
+    </div>
+    <p class="text-blue-100 mt-3">
+      Fetch a single name’s full metadata using its unique slug (SEO-friendly identifier).
+    </p>
+  </div>
+
+  <div class="p-6">
+
+    <!-- Description -->
+    <div class="mb-6">
+      <h3 class="text-lg font-bold text-gray-900 mb-3">Description</h3>
+      <p class="text-gray-600 leading-relaxed">
+        This endpoint retrieves detailed information for a specific name using its slug.
+        The slug is a unique, SEO-friendly string such as <code class="font-mono bg-gray-100 px-1 rounded">abdul-rauf</code>.
+      </p>
+    </div>
+
+    <!-- Path Parameter -->
+    <div class="mb-6">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Path Parameter</h3>
+
+      <div class="border border-gray-200 rounded-lg p-4">
+        <div class="flex items-start space-x-2 mb-2">
+          <code class="text-indigo-600 font-semibold">slug</code>
+          <span class="text-xs bg-gray-100 px-2 py-1 rounded">string</span>
+          <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded">required</span>
+        </div>
+        <p class="text-sm text-gray-600 mb-2">
+          The unique slug of the name. Must be lowercase and hyphen-separated.
+        </p>
+
+        <div class="bg-gray-50 p-2 rounded text-xs">
+          <div class="text-gray-500 mb-1">Examples</div>
+          <div class="flex gap-2 flex-wrap">
+            <span class="bg-white border px-2 py-1 rounded font-mono">abdul-rauf</span>
+            <span class="bg-white border px-2 py-1 rounded font-mono">muhammad-ali</span>
+            <span class="bg-white border px-2 py-1 rounded font-mono">sara-johnson</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Request Example -->
+    <div class="mb-6">
+      <h3 class="text-lg font-bold text-gray-900 mb-3">Request Example</h3>
+      <div class="code-block" style="background: #1e293b; border-radius: 8px; padding: 16px; overflow-x: auto;">
+        <code style="color: #38bdf8; font-family: 'Courier New', monospace; font-size: 14px;">
+GET https://namverse-api.vercel.app/api/names/abdul-rauf
+        </code>
+      </div>
+    </div>
+
+    <!-- Response -->
+    <div class="mb-6">
+      <h3 class="text-lg font-bold text-gray-900 mb-3">Response</h3>
+
+      <!-- Success Response -->
+      <div class="mb-4">
+        <div class="flex items-center space-x-2 mb-2">
+          <span class="bg-green-500 text-white px-3 py-1 rounded text-sm font-bold">200</span>
+          <span class="text-sm font-semibold text-gray-700">Success</span>
+        </div>
+        <div class="code-block" style="background: #1e293b; border-radius: 8px; padding: 16px; overflow-x: auto;">
+          <pre><code style="color: #38bdf8; font-family: 'Courier New', monospace; font-size: 14px;">{
+  "success": true,
+  "slug": "abdul-rauf",
+  "data": {
+    "name": "Abdul Rauf",
+    "meaning": "Servant of the Most Kind",
+    "origin": "Arabic",
+    "gender": "Male",
+    "religion": "Islamic",
+    "popularity_rank": 182
+  }
+}</code></pre>
+        </div>
+      </div>
+
+      <!-- Error Response -->
+      <div>
+        <div class="flex items-center space-x-2 mb-2">
+          <span class="bg-red-500 text-white px-3 py-1 rounded text-sm font-bold">404</span>
+          <span class="text-sm font-semibold text-gray-700">Not Found</span>
+        </div>
+        <div class="code-block" style="background: #1e293b; border-radius: 8px; padding: 16px; overflow-x: auto;">
+          <pre><code style="color: #38bdf8; font-family: 'Courier New', monospace; font-size: 14px;">{
+  "error": "Name not found",
+  "slug": "abcd"
+}</code></pre>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

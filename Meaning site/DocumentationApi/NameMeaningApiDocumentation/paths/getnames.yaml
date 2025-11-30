@@ -1,0 +1,46 @@
+get:
+  summary: Get a list of names
+  description: Retrieve a list of names filtered by starting alphabet and religion.
+  parameters:
+    - name: limit
+      in: query
+      schema:
+        type: integer
+        default: 50
+      description: Max number of results
+    - name: alphabet
+      in: query
+      schema:
+        type: string
+      description: Filter by first letter
+    - name: religion
+      in: query
+      schema:
+        type: string
+        enum: [christian, islamic, hindu]
+      description: Filter by religion
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: string
+          examples:
+            sample:
+              summary: Example
+              value: [Samuel, Sarah, Simon]
+    '429':
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateLimitResponse'
+    '500':
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'

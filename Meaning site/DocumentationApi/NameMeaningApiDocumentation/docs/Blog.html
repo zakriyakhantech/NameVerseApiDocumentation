@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NameVerAPI - Comprehensive Name Database | Zakriya Khan</title>
+    <style>
+        :root {
+            --primary: #3a86ff;
+            --secondary: #8338ec;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --success: #06d6a0;
+            --warning: #ffd166;
+            --danger: #ef476f;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fb;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo span {
+            color: var(--warning);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: var(--warning);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 4rem 0;
+            text-align: center;
+            background-color: white;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(58, 134, 255, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(58, 134, 255, 0.4);
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .blog-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .sidebar {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        h2 {
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        h3 {
+            color: var(--secondary);
+            margin: 1.5rem 0 1rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        /* Code Examples */
+        .code-example {
+            background: var(--dark);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+        
+        .code-example pre {
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+        }
+        
+        .code-example .comment {
+            color: #6a9955;
+        }
+        
+        .code-example .keyword {
+            color: #569cd6;
+        }
+        
+        .code-example .string {
+            color: #ce9178;
+        }
+        
+        .code-example .function {
+            color: #dcdcaa;
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h4 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+        }
+        
+        .contact-methods {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .contact-method {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .contact-method i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-right: 1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            width: 100%;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 0.75rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">NameVer<span>API</span></div>
+                <nav>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#documentation">Documentation</a></li>
+                        <li><a href="#examples">Examples</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>NameVerAPI: Access 70,000+ Names with Ease</h1>
+            <p>A powerful REST API providing access to over 70,000 names with search, filtering, and pagination capabilities. Perfect for applications requiring name validation, suggestions, or demographic analysis.</p>
+            <a href="#documentation" class="cta-button">Get Started Now</a>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="main-content">
+            <div class="blog-content">
+                <section id="introduction">
+                    <h2>Introducing NameVerAPI</h2>
+                    <p>Hello! I'm <strong>Zakriya Khan</strong>, a full-stack developer specializing in Next.js, JavaScript ES6, Tailwind CSS, React, Node.js, Vue.js, OpenAPI, Swagger, and AI integrations. I'm excited to introduce <strong>NameVerAPI</strong>, a comprehensive name database API that provides access to over 70,000 names from various cultures and regions.</p>
+                    
+                    <p>This API is perfect for developers building applications that require name validation, name suggestions, demographic analysis, or any functionality that leverages name databases. With easy-to-use endpoints and comprehensive documentation, integrating NameVerAPI into your projects is straightforward.</p>
+                    
+                    <div class="code-example">
+                        <pre><span class="comment">// Quick Start Example</span>
+<span class="keyword">const</span> <span class="function">fetchNames</span> = <span class="keyword">async</span> () => {
+  <span class="keyword">try</span> {
+    <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(<span class="string">'https://api.nameverapi.com/names?limit=10'</span>);
+    <span class="keyword">const</span> data = <span class="keyword">await</span> response.json();
+    <span class="keyword">return</span> data;
+  } <span class="keyword">catch</span> (error) {
+    console.error(<span class="string">'Error fetching names:'</span>, error);
+  }
+};</pre>
+                    </div>
+                </section>
+
+                <section id="features">
+                    <h2>Key Features</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <i class="fas fa-database"></i>
+                            <h4>70,000+ Names</h4>
+                            <p>Access a vast collection of names from various cultures and regions.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-search"></i>
+                            <h4>Advanced Search</h4>
+                            <p>Search names by various parameters including origin, gender, and popularity.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-sliders-h"></i>
+                            <h4>Filtering & Sorting</h4>
+                            <p>Filter and sort results based on multiple criteria.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-bolt"></i>
+                            <h4>Fast Response</h4>
+                            <p>Optimized API with fast response times for better user experience.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-code"></i>
+                            <h4>RESTful Design</h4>
+                            <p>Clean, RESTful API design following best practices.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-shield-alt"></i>
+                            <h4>Secure & Reliable</h4>
+                            <p>Built with security and reliability in mind for production use.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="documentation">
+                    <h2>API Documentation</h2>
+                    <p>NameVerAPI provides several endpoints to access and search through the name database. The base URL for all endpoints is <code>https://api.nameverapi.com</code>.</p>
+                    
+                    <h3>Authentication</h3>
+                    <p>Currently, NameVerAPI doesn't require authentication for basic usage. However, rate limiting is applied to prevent abuse.</p>
+                    
+                    <h3>Rate Limits</h3>
+                    <p>The API is currently limited to <strong>50 requests per IP address per day</strong>. If you need higher limits for your application, please contact me to discuss your requirements.</p>
+                    
+                    <h3>Endpoints</h3>
+                    
+                    <h4>Get All Names</h4>
+                    <p>Retrieve a list of names with optional pagination and filtering.</p>
+                    <div class="code-example">
+                        <pre>GET /names
+GET /names?page=1&limit=20
+GET /names?gender=female&origin=arabic</pre>
+                    </div>
+                    
+                    <h4>Search Names</h4>
+                    <p>Search for names by query string with optional filters.</p>
+                    <div class="code-example">
+                        <pre>GET /names/search?q=john
+GET /names/search?q=mar&gender=unisex&limit=10</pre>
+                    </div>
+                    
+                    <h4>Get Name by Slug</h4>
+                    <p>Retrieve detailed information about a specific name using its slug.</p>
+                    <div class="code-example">
+                        <pre>GET /names/slug/john-doe
+GET /names/slug/maria-garcia</pre>
+                    </div>
+                    
+                    <h4>Get Names by Origin</h4>
+                    <p>Retrieve names filtered by their cultural or regional origin.</p>
+                    <div class="code-example">
+                        <pre>GET /names/origin/english
+GET /names/origin/spanish?limit=15</pre>
+                    </div>
+                    
+                    <h3>Response Format</h3>
+                    <p>All successful API responses follow a consistent JSON format:</p>
+                    <div class="code-example">
+                        <pre>{
+  <span class="string">"success"</span>: <span class="keyword">true</span>,
+  <span class="string">"data"</span>: {
+    <span class="string">"names"</span>: [
+      {
+        <span class="string">"id"</span>: <span class="string">"123"</span>,
+        <span class="string">"name"</span>: <span class="string">"John"</span>,
+        <span class="string">"slug"</span>: <span class="string">"john"</span>,
+        <span class="string">"gender"</span>: <span class="string">"male"</span>,
+        <span class="string">"origin"</span>: <span class="string">"english"</span>,
+        <span class="string">"meaning"</span>: <span class="string">"God is gracious"</span>,
+        <span class="string">"popularity"</span>: <span class="string">"high"</span>
+      }
+    ],
+    <span class="string">"pagination"</span>: {
+      <span class="string">"page"</span>: 1,
+      <span class="string">"limit"</span>: 10,
+      <span class="string">"total"</span>: 70000,
+      <span class="string">"pages"</span>: 7000
+    }
+  }
+}</pre>
+                    </div>
+                </section>
+
+                <section id="examples">
+                    <h2>Code Examples</h2>
+                    
+                    <h3>JavaScript Fetch Example</h3>
+                    <div class="code-example">
+                        <pre><span class="comment">// Fetch names with search and filters</span>
+<span class="keyword">async</span> <span class="keyword">function</span> <span class="function">searchNames</span>(query, gender, origin) {
+  <span class="keyword">const</span> params = <span class="keyword">new</span> URLSearchParams({
+    q: query,
+    ...(gender && { gender }),
+    ...(origin && { origin }),
+    limit: 20
+  });
+  
+  <span class="keyword">try</span> {
+    <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(`https://api.nameverapi.com/names/search?${params}`);
+    <span class="keyword">const</span> result = <span class="keyword">await</span> response.json();
+    
+    <span class="keyword">if</span> (result.success) {
+      <span class="keyword">return</span> result.data.names;
+    } <span class="keyword">else</span> {
+      console.error(<span class="string">'API Error:'</span>, result.error);
+      <span class="keyword">return</span> [];
+    }
+  } <span class="keyword">catch</span> (error) {
+    console.error(<span class="string">'Network Error:'</span>, error);
+    <span class="keyword">return</span> [];
+  }
+}
+
+<span class="comment">// Usage</span>
+<span class="function">searchNames</span>(<span class="string">'mar'</span>, <span class="string">'female'</span>, <span class="string">'spanish'</span>)
+  .then(names => console.log(names));</pre>
+                    </div>
+                    
+                    <h3>React Hook Example</h3>
+                    <div class="code-example">
+                        <pre><span class="keyword">import</span> { useState, useEffect } <span class="keyword">from</span> <span class="string">'react'</span>;
+
+<span class="keyword">const</span> <span class="function">useNameSearch</span> = (query, filters = {}) => {
+  <span class="keyword">const</span> [names, setNames] = useState([]);
+  <span class="keyword">const</span> [loading, setLoading] = useState(<span class="keyword">false</span>);
+  <span class="keyword">const</span> [error, setError] = useState(<span class="keyword">null</span>);
+  
+  useEffect(() => {
+    <span class="keyword">const</span> <span class="function">fetchNames</span> = <span class="keyword">async</span> () => {
+      <span class="keyword">if</span> (!query) {
+        setNames([]);
+        <span class="keyword">return</span>;
+      }
+      
+      setLoading(<span class="keyword">true</span>);
+      setError(<span class="keyword">null</span>);
+      
+      <span class="keyword">const</span> params = <span class="keyword">new</span> URLSearchParams({
+        q: query,
+        ...filters,
+        limit: 20
+      });
+      
+      <span class="keyword">try</span> {
+        <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(`https://api.nameverapi.com/names/search?${params}`);
+        <span class="keyword">const</span> result = <span class="keyword">await</span> response.json();
+        
+        <span class="keyword">if</span> (result.success) {
+          setNames(result.data.names);
+        } <span class="keyword">else</span> {
+          setError(result.error || <span class="string">'Unknown API error'</span>);
+        }
+      } <span class="keyword">catch</span> (err) {
+        setError(<span class="string">'Network error: '</span> + err.message);
+      } <span class="keyword">finally</span> {
+        setLoading(<span class="keyword">false</span>);
+      }
+    };
+    
+    <span class="function">fetchNames</span>();
+  }, [query, JSON.stringify(filters)]);
+  
+  <span class="keyword">return</span> { names, loading, error };
+};
+
+<span class="comment">// Usage in a component</span>
+<span class="keyword">const</span> <span class="function">NameSearchComponent</span> = () => {
+  <span class="keyword">const</span> [query, setQuery] = useState(<span class="string">''</span>);
+  <span class="keyword">const</span> { names, loading, error } = <span class="function">useNameSearch</span>(query, { gender: <span class="string">'unisex'</span> });
+  
+  <span class="keyword">return</span> (
+    &lt;div&gt;
+      &lt;input 
+        type=<span class="string">"text"</span>
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder=<span class="string">"Search names..."</span>
+      /&gt;
+      
+      {loading && &lt;p&gt;Loading...&lt;/p&gt;}
+      {error && &lt;p style={{ color: <span class="string">'red'</span> }}&gt;{error}&lt;/p&gt;}
+      
+      &lt;ul&gt;
+        {names.map(name => (
+          &lt;li key={name.id}&gt;{name.name} - {name.origin}&lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+};</pre>
+                    </div>
+                    
+                    <h3>Node.js Example</h3>
+                    <div class="code-example">
+                        <pre><span class="keyword">const</span> axios = <span class="function">require</span>(<span class="string">'axios'</span>);
+
+<span class="keyword">async</span> <span class="keyword">function</span> <span class="function">getNameBySlug</span>(slug) {
+  <span class="keyword">try</span> {
+    <span class="keyword">const</span> response = <span class="keyword">await</span> axios.get(`https://api.nameverapi.com/names/slug/${slug}`);
+    
+    <span class="keyword">if</span> (response.data.success) {
+      <span class="keyword">return</span> response.data.data;
+    } <span class="keyword">else</span> {
+      <span class="keyword">throw new</span> Error(response.data.error || <span class="string">'Unknown API error'</span>);
+    }
+  } <span class="keyword">catch</span> (error) {
+    <span class="keyword">if</span> (error.response && error.response.status === 404) {
+      console.log(<span class="string">'Name not found'</span>);
+      <span class="keyword">return</span> <span class="keyword">null</span>;
+    }
+    console.error(<span class="string">'Error fetching name:'</span>, error.message);
+    <span class="keyword">throw</span> error;
+  }
+}
+
+<span class="comment">// Usage</span>
+<span class="function">getNameBySlug</span>(<span class="string">'john-doe'</span>)
+  .then(name => {
+    <span class="keyword">if</span> (name) {
+      console.log(<span class="string">'Name details:'</span>, name);
+    }
+  })
+  .catch(error => console.error(<span class="string">'Error:'</span>, error));</pre>
+                    </div>
+                </section>
+
+                <section id="contact">
+                    <h2>Get Higher Rate Limits</h2>
+                    <p>The current rate limit is set to 50 requests per IP address per day. If you're building an application that requires more frequent API calls, I offer custom rate limits based on your needs.</p>
+                    
+                    <p>Please contact me through any of the methods below to discuss your requirements:</p>
+                    
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <i class="fab fa-whatsapp"></i>
+                            <div>
+                                <h4>WhatsApp</h4>
+                                <p>+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email</h4>
+                                <p>zakriya.khan@example.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fab fa-linkedin"></i>
+                            <div>
+                                <h4>LinkedIn</h4>
+                                <p>linkedin.com/in/zakriya-khan</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="sidebar">
+                <div class="about-me">
+                    <h2>About Me</h2>
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <div style="width: 120px; height: 120px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem;">
+                            ZK
+                        </div>
+                        <h3>Zakriya Khan</h3>
+                        <p>Full Stack Developer</p>
+                    </div>
+                    
+                    <p>I specialize in modern web technologies including:</p>
+                    <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+                        <li>Next.js & React</li>
+                        <li>JavaScript ES6+</li>
+                        <li>Tailwind CSS</li>
+                        <li>Node.js & Express</li>
+                        <li>Vue.js</li>
+                        <li>OpenAPI & Swagger</li>
+                        <li>API Automation</li>
+                        <li>AI Integrations</li>
+                    </ul>
+                    
+                    <p>I build robust, scalable applications with clean code and excellent user experiences.</p>
+                </div>
+                
+                <div class="api-status" style="margin-top: 2rem;">
+                    <h2>API Status</h2>
+                    <div style="background: #e8f5e9; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                        <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                            <div style="width: 12px; height: 12px; background: var(--success); border-radius: 50%; margin-right: 0.5rem;"></div>
+                            <strong>Operational</strong>
+                        </div>
+                        <p>All systems are running smoothly.</p>
+                    </div>
+                    
+                    <div style="background: #fff3e0; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                        <h4>Rate Limit</h4>
+                        <p><strong>50 requests/IP/day</strong></p>
+                        <p style="font-size: 0.9rem; margin-top: 0.5rem;">Need more? <a href="#contact">Contact me</a> for higher limits.</p>
+                    </div>
+                </div>
+                
+                <div class="quick-links" style="margin-top: 2rem;">
+                    <h2>Quick Links</h2>
+                    <ul style="list-style: none; margin-top: 1rem;">
+                        <li style="margin-bottom: 0.5rem;"><a href="#documentation" style="color: var(--primary); text-decoration: none;">API Documentation</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#examples" style="color: var(--primary); text-decoration: none;">Code Examples</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#contact" style="color: var(--primary); text-decoration: none;">Request Higher Limits</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#" style="color: var(--primary); text-decoration: none;">GitHub Repository</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">NameVerAPI</div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-dev"></i></a>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2025 NameVerAPI. Created by Zakriya Khan. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

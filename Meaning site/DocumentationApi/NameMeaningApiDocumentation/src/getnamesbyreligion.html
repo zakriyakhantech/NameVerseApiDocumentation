@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NameVerse API - Religion Names Testing</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #10b981 0%, #0f766e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .api-response {
+      font-family: 'Courier New', monospace;
+    }
+    .religion-card {
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .religion-card:hover {
+      transform: translateY(-4px);
+    }
+    .religion-card.active {
+      border-width: 3px;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+  
+  <!-- Header -->
+  <header class="bg-white shadow-sm border-b border-gray-200">
+    <div class="container mx-auto px-6 py-6">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+          <div class="w-12 h-12 bg-gradient-to-br from-emerald-600 to-teal-700 rounded-xl flex items-center justify-center shadow-lg">
+            <i class="fas fa-praying-hands text-white text-xl"></i>
+          </div>
+          <div>
+            <h1 class="text-2xl font-bold gradient-text">NameVerse API</h1>
+            <p class="text-sm text-gray-600">65,000+ Religious Names - Live API Testing</p>
+          </div>
+        </div>
+        <div class="flex items-center space-x-3">
+          <a href="/" class="px-4 py-2 bg-gray-50 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors text-sm font-semibold">
+            <i class="fas fa-book mr-2"></i>Docs
+          </a>
+          <a href="/health" class="px-4 py-2 bg-green-50 text-green-700 rounded-lg hover:bg-green-100 transition-colors text-sm font-semibold">
+            <i class="fas fa-heartbeat mr-2"></i>Health
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="container mx-auto px-6 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+      
+      <!-- LEFT SIDE: CONTROLS -->
+      <div class="lg:col-span-2 space-y-6">
+        
+        <!-- Religion Selection -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
+              <i class="fas fa-globe text-emerald-600"></i>
+            </div>
+            <h2 class="text-lg font-bold text-gray-900">Select Religion</h2>
+          </div>
+          
+          <div class="space-y-3">
+            <div class="religion-card active bg-gradient-to-br from-green-50 to-green-100 border-3 border-green-500 rounded-lg p-4" data-religion="islamic">
+              <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <i class="fas fa-moon text-white text-xl"></i>
+                </div>
+                <div class="flex-1">
+                  <h3 class="font-bold text-green-900">Islamic Names</h3>
+                  <p class="text-xs text-green-700">35,000+ names</p>
+                </div>
+                <i class="fas fa-check-circle text-green-600 text-xl"></i>
+              </div>
+            </div>
+
+            <div class="religion-card bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-transparent rounded-lg p-4 hover:border-purple-300" data-religion="christian">
+              <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <i class="fas fa-cross text-white text-xl"></i>
+                </div>
+                <div class="flex-1">
+                  <h3 class="font-bold text-purple-900">Christian Names</h3>
+                  <p class="text-xs text-purple-700">15,000+ names</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="religion-card bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-transparent rounded-lg p-4 hover:border-orange-300" data-religion="hindu">
+              <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <i class="fas fa-om text-white text-xl"></i>
+                </div>
+                <div class="flex-1">
+                  <h3 class="font-bold text-orange-900">Hindu Names</h3>
+                  <p class="text-xs text-orange-700">15,000+ names</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- API URL -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div class="flex items-center space-x-3 mb-3">
+            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+              <i class="fas fa-code text-blue-600"></i>
+            </div>
+            <h2 class="text-lg font-bold text-gray-900">API Endpoint</h2>
+          </div>
+          <div class="bg-gray-900 text-green-400 p-3 rounded-lg font-mono text-xs break-all leading-relaxed" id="apiUrl">
+            https://namverse-api.vercel.app/api/religion/islamic?page=1&limit=40&sort=asc
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+              <i class="fas fa-sliders-h text-purple-600"></i>
+            </div>
+            <h2 class="text-lg font-bold text-gray-900">Filters & Options</h2>
+          </div>
+          
+          <form id="filterForm" class="space-y-4">
+            <!-- Pagination Row -->
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="page" class="block text-xs font-semibold text-gray-700 mb-2">PAGE</label>
+                <input 
+                  type="number" 
+                  id="page" 
+                  value="1"
+                  min="1"
+                  class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200"
+                >
+              </div>
+              <div>
+                <label for="limit" class="block text-xs font-semibold text-gray-700 mb-2">LIMIT</label>
+                <input 
+                  type="number" 
+                  id="limit" 
+                  value="40"
+                  min="1"
+                  max="100"
+                  class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200"
+                >
+              </div>
+            </div>
+
+            <!-- Gender & Sort -->
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="gender" class="block text-xs font-semibold text-gray-700 mb-2">GENDER</label>
+                <select 
+                  id="gender"
+                  class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200"
+                >
+                  <option value="">All</option>
+                  <option value="boy">Boy</option>
+                  <option value="girl">Girl</option>
+                </select>
+              </div>
+              <div>
+                <label for="sort" class="block text-xs font-semibold text-gray-700 mb-2">SORT</label>
+                <select 
+                  id="sort"
+                  class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200"
+                >
+                  <option value="asc">A → Z</option>
+                  <option value="desc">Z → A</option>
+                  <option value="popularity">Popularity</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Letter & Origin -->
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="letter" class="block text-xs font-semibold text-gray-700 mb-2">LETTER</label>
+                <input 
+                  type="text" 
+                  id="letter" 
+                  placeholder="A-Z"
+                  maxlength="1"
+                  class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 uppercase"
+                >
+              </div>
+              <div>
+                <label for="origin" class="block text-xs font-semibold text-gray-700 mb-2">ORIGIN</label>
+                <input 
+                  type="text" 
+                  id="origin" 
+                  placeholder="e.g., Arabic"
+                  class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200"
+                >
+              </div>
+            </div>
+
+            <!-- ISR Info -->
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
+              <div class="flex items-start space-x-2">
+                <i class="fas fa-sync-alt text-blue-600 mt-0.5"></i>
+                <div>
+                  <p class="text-xs font-semibold text-blue-900">ISR Enabled • 65,000+ Names</p>
+                  <p class="text-xs text-blue-700">Revalidation: 60 seconds</p>
+                </div>
+              </div>
+            </div>
+
+            <button 
+              type="submit"
+              id="fetchBtn"
+              class="w-full bg-gradient-to-r from-emerald-600 to-teal-700 text-white font-semibold py-3 px-6 rounded-lg hover:shadow-lg transform hover:scale-[1.02] transition-all duration-200 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <i class="fas fa-paper-plane mr-2"></i>Send Request
+            </button>
+          </form>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <h3 class="text-sm font-bold text-gray-900 mb-3">Quick Actions</h3>
+          <div class="space-y-2">
+            <button class="quick-action w-full text-left px-3 py-2 bg-green-50 text-green-700 rounded-lg text-xs font-semibold hover:bg-green-100 transition-colors" data-action='{"religion":"islamic","gender":"boy","sort":"popularity","page":"1","limit":"20"}'>
+              <i class="fas fa-star mr-2"></i>Top 20 Islamic Boy Names
+            </button>
+            <button class="quick-action w-full text-left px-3 py-2 bg-pink-50 text-pink-700 rounded-lg text-xs font-semibold hover:bg-pink-100 transition-colors" data-action='{"religion":"christian","gender":"girl","sort":"asc","page":"1","limit":"30"}'>
+              <i class="fas fa-heart mr-2"></i>Christian Girl Names A-Z
+            </button>
+            <button class="quick-action w-full text-left px-3 py-2 bg-orange-50 text-orange-700 rounded-lg text-xs font-semibold hover:bg-orange-100 transition-colors" data-action='{"religion":"hindu","letter":"A","sort":"asc","page":"1","limit":"25"}'>
+              <i class="fas fa-font mr-2"></i>Hindu Names Starting with A
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT SIDE: RESULTS -->
+      <div class="lg:col-span-3 space-y-6">
+        
+        <!-- Loading -->
+        <div id="loading" class="hidden text-center py-16">
+          <div class="inline-flex flex-col items-center space-y-4">
+            <svg class="animate-spin h-12 w-12 text-emerald-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span class="text-emerald-600 font-semibold">Fetching data...</span>
+            <span class="text-sm text-gray-500">Loading from 65,000+ database</span>
+          </div>
+        </div>
+
+        <!-- JSON Response -->
+        <div id="jsonResponse" class="hidden bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wide">
+              <i class="fas fa-code mr-2 text-gray-600"></i>API Response
+            </h3>
+            <div class="flex items-center space-x-2">
+              <span id="statusBadge" class="px-3 py-1 rounded-md font-semibold text-xs"></span>
+              <button id="copyBtn" class="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md text-xs font-semibold transition-colors">
+                <i class="fas fa-copy mr-1"></i>Copy JSON
+              </button>
+            </div>
+          </div>
+          <div class="bg-gray-900 rounded-lg overflow-hidden border border-gray-700">
+            <pre id="jsonBody" class="text-gray-100 p-4 text-xs overflow-x-auto max-h-[600px] overflow-y-auto api-response leading-relaxed"></pre>
+          </div>
+        </div>
+
+        <!-- Initial Message -->
+        <div id="initialMessage" class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
+          <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-flask text-emerald-600 text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Ready to Test API</h3>
+          <p class="text-gray-600 mb-6">Configure your filters and click "Send Request" to see the JSON response</p>
+          <div class="grid grid-cols-3 gap-4 max-w-md mx-auto">
+            <div class="bg-gray-50 rounded-lg p-3">
+              <div class="text-2xl font-bold text-emerald-600">65K+</div>
+              <div class="text-xs text-gray-600">Total Names</div>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-3">
+              <div class="text-2xl font-bold text-blue-600">3</div>
+              <div class="text-xs text-gray-600">Religions</div>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-3">
+              <div class="text-2xl font-bold text-purple-600">ISR</div>
+              <div class="text-xs text-gray-600">60s Cache</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const BASE_URL = 'https://namverse-api.vercel.app/api/religion';
+    let selectedReligion = 'islamic';
+
+    const religionCards = document.querySelectorAll('.religion-card');
+    const apiUrlDisplay = document.getElementById('apiUrl');
+    const filterForm = document.getElementById('filterForm');
+    const fetchBtn = document.getElementById('fetchBtn');
+    const quickActions = document.querySelectorAll('.quick-action');
+    
+    const loading = document.getElementById('loading');
+    const jsonResponse = document.getElementById('jsonResponse');
+    const jsonBody = document.getElementById('jsonBody');
+    const statusBadge = document.getElementById('statusBadge');
+    const copyBtn = document.getElementById('copyBtn');
+    const initialMessage = document.getElementById('initialMessage');
+
+    const pageInput = document.getElementById('page');
+    const limitInput = document.getElementById('limit');
+    const genderSelect = document.getElementById('gender');
+    const sortSelect = document.getElementById('sort');
+    const letterInput = document.getElementById('letter');
+    const originInput = document.getElementById('origin');
+
+    function updateURL() {
+      const params = new URLSearchParams();
+      params.append('page', pageInput.value || '1');
+      params.append('limit', limitInput.value || '40');
+      params.append('sort', sortSelect.value || 'asc');
+      if (genderSelect.value) params.append('gender', genderSelect.value);
+      if (letterInput.value) params.append('letter', letterInput.value.toUpperCase());
+      if (originInput.value) params.append('origin', originInput.value);
+      
+      apiUrlDisplay.textContent = `${BASE_URL}/${selectedReligion}?${params.toString()}`;
+    }
+
+    // Religion card selection
+    religionCards.forEach(card => {
+      card.addEventListener('click', () => {
+        religionCards.forEach(c => {
+          c.classList.remove('active', 'border-3');
+          c.classList.add('border-2', 'border-transparent');
+          const icon = c.querySelector('.fa-check-circle');
+          if (icon) icon.remove();
+        });
+        
+        card.classList.add('active', 'border-3');
+        card.classList.remove('border-2', 'border-transparent');
+        
+        const religion = card.dataset.religion;
+        selectedReligion = religion;
+        
+        const iconContainer = card.querySelector('.flex');
+        if (!card.querySelector('.fa-check-circle')) {
+          const checkIcon = document.createElement('i');
+          checkIcon.className = 'fas fa-check-circle text-xl';
+          checkIcon.style.color = religion === 'islamic' ? '#16a34a' : 
+                                   religion === 'christian' ? '#9333ea' : '#ea580c';
+          iconContainer.appendChild(checkIcon);
+        }
+        
+        updateURL();
+      });
+    });
+
+    // Update URL on input changes
+    [pageInput, limitInput, genderSelect, sortSelect, letterInput, originInput].forEach(el => {
+      el.addEventListener('input', updateURL);
+      el.addEventListener('change', updateURL);
+    });
+
+    // Copy button
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(jsonBody.textContent);
+        const originalHTML = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="fas fa-check mr-1"></i>Copied!';
+        copyBtn.classList.add('bg-green-100', 'text-green-700');
+        copyBtn.classList.remove('bg-gray-100', 'text-gray-700');
+        
+        setTimeout(() => {
+          copyBtn.innerHTML = originalHTML;
+          copyBtn.classList.remove('bg-green-100', 'text-green-700');
+          copyBtn.classList.add('bg-gray-100', 'text-gray-700');
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy:', err);
+      }
+    });
+
+    // Form submission
+    filterForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      fetchBtn.disabled = true;
+      loading.classList.remove('hidden');
+      jsonResponse.classList.add('hidden');
+      initialMessage.classList.add('hidden');
+      
+      try {
+        const params = new URLSearchParams();
+        params.append('page', pageInput.value || '1');
+        params.append('limit', limitInput.value || '40');
+        params.append('sort', sortSelect.value || 'asc');
+        if (genderSelect.value) params.append('gender', genderSelect.value);
+        if (letterInput.value) params.append('letter', letterInput.value.toUpperCase());
+        if (originInput.value) params.append('origin', originInput.value);
+        
+        const url = `${BASE_URL}/${selectedReligion}?${params.toString()}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        // Update status badge
+        statusBadge.textContent = `${response.status} ${response.statusText}`;
+        statusBadge.className = response.ok 
+          ? 'px-3 py-1 rounded-md font-semibold text-xs bg-green-500 text-white' 
+          : 'px-3 py-1 rounded-md font-semibold text-xs bg-red-500 text-white';
+        
+        // Show JSON response
+        jsonBody.textContent = JSON.stringify(data, null, 2);
+        jsonResponse.classList.remove('hidden');
+        
+      } catch (error) {
+        statusBadge.textContent = 'Error';
+        statusBadge.className = 'px-3 py-1 rounded-md font-semibold text-xs bg-red-500 text-white';
+        jsonBody.textContent = JSON.stringify({ error: error.message }, null, 2);
+        jsonResponse.classList.remove('hidden');
+      } finally {
+        fetchBtn.disabled = false;
+        loading.classList.add('hidden');
+      }
+    });
+
+    // Quick actions
+    quickActions.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const action = JSON.parse(btn.dataset.action);
+        
+        selectedReligion = action.religion;
+        religionCards.forEach(card => {
+          if (card.dataset.religion === action.religion) {
+            card.click();
+          }
+        });
+        
+        pageInput.value = action.page || '1';
+        limitInput.value = action.limit || '40';
+        genderSelect.value = action.gender || '';
+        sortSelect.value = action.sort || 'asc';
+        letterInput.value = action.letter || '';
+        originInput.value = action.origin || '';
+        
+        updateURL();
+        filterForm.dispatchEvent(new Event('submit'));
+      });
+    });
+
+    // Initialize
+    updateURL();
+  </script>
+</body>
+</html>

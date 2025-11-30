@@ -1,0 +1,137 @@
+<div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+  
+  <!-- Endpoint Header -->
+  <div class="bg-gradient-to-r from-purple-600 to-indigo-600 p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-2xl font-bold text-white">Search Names</h2>
+      <a href="/getnamesbysearch" class="bg-white text-purple-600 px-4 py-2 rounded-lg hover:bg-purple-50 transition-colors font-semibold text-sm">
+        <i class="fas fa-flask mr-2"></i>Live Testing
+      </a>
+    </div>
+    <div class="flex items-center space-x-3">
+      <span class="bg-green-500 text-white px-3 py-1 rounded-md font-bold text-sm">GET</span>
+      <code class="text-white text-lg font-mono">/api/names/search</code>
+    </div>
+    <p class="text-purple-100 mt-3">
+      Search names by keyword, substring, or partial text matching.
+    </p>
+  </div>
+
+  <div class="p-6">
+
+    <!-- Description -->
+    <div class="mb-6">
+      <h3 class="text-lg font-bold text-gray-900 mb-3">Description</h3>
+      <p class="text-gray-600 leading-relaxed">
+        This endpoint allows searching for names using a text query. It supports partial matches, 
+        case-insensitive search, and returns a list of all names matching the text pattern. 
+        Works for all religions and alphabets.
+      </p>
+    </div>
+
+    <!-- Parameters -->
+    <div class="mb-6">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Query Parameters</h3>
+      <div class="space-y-4">
+
+        <!-- Query Parameter -->
+        <div class="border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start justify-between mb-2">
+            <div class="flex items-center space-x-2">
+              <code class="text-purple-600 font-semibold">query</code>
+              <span class="text-xs bg-gray-100 px-2 py-1 rounded">string</span>
+              <span class="text-xs bg-red-100 text-red-700 px-2 py-1 rounded">required</span>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 mb-2">
+            Text keyword to search names by. Supports partial search.
+          </p>
+          <div class="bg-gray-50 p-2 rounded text-xs">
+            <div class="text-gray-500 mb-1">Examples</div>
+            <div class="flex gap-2 flex-wrap">
+              <span class="bg-white border px-2 py-1 rounded font-mono">aa</span>
+              <span class="bg-white border px-2 py-1 rounded font-mono">rah</span>
+              <span class="bg-white border px-2 py-1 rounded font-mono">mu</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Limit Parameter -->
+        <div class="border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start justify-between mb-2">
+            <div class="flex items-center space-x-2">
+              <code class="text-purple-600 font-semibold">limit</code>
+              <span class="text-xs bg-gray-100 px-2 py-1 rounded">integer</span>
+              <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">optional</span>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 mb-2">
+            Maximum number of search results to return.
+          </p>
+          <div class="grid grid-cols-3 gap-3 text-xs">
+            <div class="bg-gray-50 p-2 rounded">
+              <div class="text-gray-500">Default</div>
+              <div class="font-semibold text-gray-900">50</div>
+            </div>
+            <div class="bg-gray-50 p-2 rounded">
+              <div class="text-gray-500">Minimum</div>
+              <div class="font-semibold text-gray-900">1</div>
+            </div>
+            <div class="bg-gray-50 p-2 rounded">
+              <div class="text-gray-500">Maximum</div>
+              <div class="font-semibold text-gray-900">500</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Request Example -->
+    <div class="mb-6">
+      <h3 class="text-lg font-bold text-gray-900 mb-3">Request Example</h3>
+      <div class="code-block" style="background: #1e293b; border-radius: 8px; padding: 16px; overflow-x: auto;">
+        <code style="color: #10b981; font-family: 'Courier New', monospace; font-size: 14px;">GET https://namverse-api.vercel.app/api/names/search?query=aa&limit=10</code>
+      </div>
+    </div>
+
+    <!-- Response -->
+    <div class="mb-6">
+      <h3 class="text-lg font-bold text-gray-900 mb-3">Response</h3>
+
+      <!-- Success Response -->
+      <div class="mb-4">
+        <div class="flex items-center space-x-2 mb-2">
+          <span class="bg-green-500 text-white px-3 py-1 rounded text-sm font-bold">200</span>
+          <span class="text-sm font-semibold text-gray-700">Success</span>
+        </div>
+        <div class="code-block" style="background: #1e293b; border-radius: 8px; padding: 16px; overflow-x: auto;">
+<pre><code style="color: #10b981; font-family: 'Courier New', monospace; font-size: 14px;">{
+  "success": true,
+  "count": 3,
+  "data": [
+    "Aarav",
+    "Aayan",
+    "Aamina"
+  ]
+}</code></pre>
+        </div>
+      </div>
+
+      <!-- Error Response -->
+      <div>
+        <div class="flex items-center space-x-2 mb-2">
+          <span class="bg-red-500 text-white px-3 py-1 rounded text-sm font-bold">400</span>
+          <span class="text-sm font-semibold text-gray-700">Bad Request</span>
+        </div>
+        <div class="code-block" style="background: #1e293b; border-radius: 8px; padding: 16px; overflow-x: auto;">
+<pre><code style="color: #10b981; font-family: 'Courier New', monospace; font-size: 14px;">{
+  "error": "Missing required parameter: query"
+}</code></pre>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

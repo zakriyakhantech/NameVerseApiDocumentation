@@ -1,0 +1,404 @@
+===========================================
+NAMEVERSE API - COMPLETE POSTMAN ROUTES
+Backend Base URL: http://namverse-api
+===========================================
+
+===========================================
+1. HEALTH CHECK / HOME
+===========================================
+
+GET http://namverse-api/
+
+
+===========================================
+2. GET ALL NAMES (Main Route with All Filters)
+===========================================
+
+GET http://namverse-api/api/names
+GET http://namverse-api/api/names?religion=islamic
+GET http://namverse-api/api/names?religion=islamic&limit=20&page=1
+GET http://namverse-api/api/names?religion=islamic&gender=male
+GET http://namverse-api/api/names?religion=islamic&gender=female
+GET http://namverse-api/api/names?religion=christian&origin=Hebrew
+GET http://namverse-api/api/names?religion=hindu&language=Sanskrit
+GET http://namverse-api/api/names?religion=islamic&category=Prophetic
+GET http://namverse-api/api/names?religion=islamic&theme=Nature
+GET http://namverse-api/api/names?religion=islamic&luckyDay=Friday
+GET http://namverse-api/api/names?religion=islamic&luckyColor=Green
+GET http://namverse-api/api/names?religion=islamic&alphabet=A
+GET http://namverse-api/api/names?religion=islamic&luckyStone=Emerald
+GET http://namverse-api/api/names?religion=islamic&limit=50&page=2&gender=male&origin=Arabic
+
+
+===========================================
+3. RELIGION-SPECIFIC ROUTES (With Filters)
+===========================================
+
+# Basic Religion Route
+GET http://namverse-api/api/religion/islamic
+GET http://namverse-api/api/religion/christian
+GET http://namverse-api/api/religion/hindu
+
+# With Pagination
+GET http://namverse-api/api/religion/islamic?limit=50&page=1
+GET http://namverse-api/api/religion/christian?limit=100&page=2
+
+# With Gender Filter
+GET http://namverse-api/api/religion/islamic?gender=male
+GET http://namverse-api/api/religion/islamic?gender=female
+
+# With Search Filter
+GET http://namverse-api/api/religion/islamic?search=muhammad
+GET http://namverse-api/api/religion/hindu?search=krishna
+
+# With Origin Filter
+GET http://namverse-api/api/religion/islamic?origin=Arabic
+GET http://namverse-api/api/religion/christian?origin=Hebrew
+
+# With StartsWith Filter
+GET http://namverse-api/api/religion/islamic?startsWith=A
+GET http://namverse-api/api/religion/hindu?startsWith=S
+
+# With Length Filter
+GET http://namverse-api/api/religion/islamic?length=5
+GET http://namverse-api/api/religion/christian?length=3-7
+
+# With Popularity Filter
+GET http://namverse-api/api/religion/islamic?popularity=80
+
+# With Trending Filter
+GET http://namverse-api/api/religion/hindu?trending=true
+
+# With Sort Options
+GET http://namverse-api/api/religion/islamic?sort=asc
+GET http://namverse-api/api/religion/islamic?sort=desc
+GET http://namverse-api/api/religion/islamic?sort=z-a
+GET http://namverse-api/api/religion/islamic?sort=popular
+GET http://namverse-api/api/religion/islamic?sort=popularity
+GET http://namverse-api/api/religion/islamic?sort=trending
+GET http://namverse-api/api/religion/islamic?sort=length-asc
+GET http://namverse-api/api/religion/islamic?sort=length-desc
+GET http://namverse-api/api/religion/islamic?sort=newest
+GET http://namverse-api/api/religion/islamic?sort=oldest
+
+# Combined Filters
+GET http://namverse-api/api/religion/islamic?gender=male&origin=Arabic&startsWith=M&limit=20&sort=popular
+GET http://namverse-api/api/religion/hindu?gender=female&length=5-8&trending=true&page=1
+
+
+===========================================
+4. GET FILTER OPTIONS
+===========================================
+
+GET http://namverse-api/api/filters
+GET http://namverse-api/api/filters?religion=islamic
+GET http://namverse-api/api/filters?religion=christian
+GET http://namverse-api/api/filters?religion=hindu
+GET http://namverse-api/api/filters?religion=all
+
+# Religion-Specific Filter Options
+GET http://namverse-api/api/religion/islamic/filters
+GET http://namverse-api/api/religion/christian/filters
+GET http://namverse-api/api/religion/hindu/filters
+
+
+===========================================
+5. GET NAME BY SLUG
+===========================================
+
+GET http://namverse-api/api/names/islamic/muhammad
+GET http://namverse-api/api/names/christian/michael
+GET http://namverse-api/api/names/hindu/krishna
+GET http://namverse-api/api/names/islamic/aisha
+GET http://namverse-api/api/names/christian/sarah
+
+
+===========================================
+6. GET NAME BY SLUG WITH LANGUAGE
+===========================================
+
+# Islamic Names
+GET http://namverse-api/api/names/islamic/arabic/muhammad
+GET http://namverse-api/api/names/islamic/urdu/muhammad
+GET http://namverse-api/api/names/islamic/hindi/aisha
+GET http://namverse-api/api/names/islamic/pashto/abdullah
+GET http://namverse-api/api/names/islamic/english/fatima
+
+# Hindu Names
+GET http://namverse-api/api/names/hindu/sanskrit/krishna
+GET http://namverse-api/api/names/hindu/hindi/radha
+GET http://namverse-api/api/names/hindu/tamil/lakshmi
+GET http://namverse-api/api/names/hindu/telugu/venkata
+GET http://namverse-api/api/names/hindu/english/aditya
+
+# Christian Names
+GET http://namverse-api/api/names/christian/hebrew/michael
+GET http://namverse-api/api/names/christian/greek/peter
+GET http://namverse-api/api/names/christian/latin/paul
+GET http://namverse-api/api/names/christian/english/john
+
+
+===========================================
+7. SEARCH NAMES (Global Search)
+===========================================
+
+GET http://namverse-api/api/search?q=ali
+GET http://namverse-api/api/search?q=muhammad&limit=50
+GET http://namverse-api/api/search?q=john&religion=christian
+GET http://namverse-api/api/search?q=krishna&religion=hindu
+GET http://namverse-api/api/search?q=maria&limit=100
+GET http://namverse-api/api/search?q=peace
+
+
+===========================================
+8. GET NAMES BY LETTER/ALPHABET
+===========================================
+
+GET http://namverse-api/api/name/letter/A
+GET http://namverse-api/api/name/letter/A?religion=islamic
+GET http://namverse-api/api/name/letter/M?religion=christian
+GET http://namverse-api/api/name/letter/K?religion=hindu
+GET http://namverse-api/api/name/letter/A?religion=islamic&page=1&perPage=150
+GET http://namverse-api/api/name/letter/S?religion=hindu&sort=alpha
+GET http://namverse-api/api/name/letter/J?religion=christian&sort=popularity
+
+
+===========================================
+9. GET NAMES BY CATEGORY
+===========================================
+
+GET http://namverse-api/api/category/islamic/Prophetic
+GET http://namverse-api/api/category/christian/Biblical
+GET http://namverse-api/api/category/hindu/Divine
+GET http://namverse-api/api/category/islamic/Quranic?page=1&perPage=20
+GET http://namverse-api/api/category/islamic/Sahabi?sort=alphabetical
+GET http://namverse-api/api/category/christian/Saints?sort=popularity
+GET http://namverse-api/api/category/hindu/Mythological?sort=newest
+
+
+===========================================
+10. GET TRENDING NAMES
+===========================================
+
+GET http://namverse-api/api/trending
+GET http://namverse-api/api/trending?religion=islamic
+GET http://namverse-api/api/trending?religion=christian
+GET http://namverse-api/api/trending?religion=hindu
+GET http://namverse-api/api/trending?religion=global
+GET http://namverse-api/api/trending?religion=islamic&page=1&limit=20
+GET http://namverse-api/api/trending?religion=global&limit=50
+
+
+===========================================
+11. GET NAMES BY LANGUAGE
+===========================================
+
+GET http://namverse-api/api/language/islamic/Arabic
+GET http://namverse-api/api/language/islamic/Urdu
+GET http://namverse-api/api/language/hindu/Sanskrit
+GET http://namverse-api/api/language/hindu/Hindi
+GET http://namverse-api/api/language/christian/Hebrew
+GET http://namverse-api/api/language/christian/Greek
+GET http://namverse-api/api/language/islamic/Arabic?page=1&perPage=50
+GET http://namverse-api/api/language/hindu/Tamil?sort=alphabetical
+GET http://namverse-api/api/language/christian/Latin?sort=popularity
+
+
+===========================================
+12. GET NAMES BY ORIGIN
+===========================================
+
+GET http://namverse-api/api/origin/islamic/Arabic
+GET http://namverse-api/api/origin/islamic/Persian
+GET http://namverse-api/api/origin/christian/Hebrew
+GET http://namverse-api/api/origin/christian/Greek
+GET http://namverse-api/api/origin/hindu/Sanskrit
+GET http://namverse-api/api/origin/hindu/Tamil
+GET http://namverse-api/api/origin/islamic/Arabic?page=1&perPage=50
+GET http://namverse-api/api/origin/christian/Latin?sort=alphabetical
+GET http://namverse-api/api/origin/hindu/Sanskrit?sort=popularity
+
+
+===========================================
+13. GET NAMES BY GENDER
+===========================================
+
+GET http://namverse-api/api/gender/boy/islamic
+GET http://namverse-api/api/gender/girl/islamic
+GET http://namverse-api/api/gender/male/christian
+GET http://namverse-api/api/gender/female/christian
+GET http://namverse-api/api/gender/unisex/hindu
+GET http://namverse-api/api/gender/boy/islamic?page=1&perPage=50
+GET http://namverse-api/api/gender/girl/hindu?sort=alphabetical
+GET http://namverse-api/api/gender/male/christian?sort=popularity
+
+
+===========================================
+14. GET NAMES BY LUCKY NUMBER
+===========================================
+
+GET http://namverse-api/api/lucky-number/islamic/1
+GET http://namverse-api/api/lucky-number/islamic/7
+GET http://namverse-api/api/lucky-number/hindu/3
+GET http://namverse-api/api/lucky-number/christian/9
+GET http://namverse-api/api/lucky-number/islamic/5?page=1&perPage=50
+
+
+===========================================
+15. GET NAMES BY LUCKY DAY
+===========================================
+
+GET http://namverse-api/api/lucky-day/islamic/Friday
+GET http://namverse-api/api/lucky-day/islamic/Monday
+GET http://namverse-api/api/lucky-day/hindu/Sunday
+GET http://namverse-api/api/lucky-day/christian/Saturday
+GET http://namverse-api/api/lucky-day/islamic/Friday?page=1&perPage=50
+
+
+===========================================
+16. GET RELATED NAMES
+===========================================
+
+GET http://namverse-api/api/related/islamic/muhammad
+GET http://namverse-api/api/related/christian/john
+GET http://namverse-api/api/related/hindu/krishna
+GET http://namverse-api/api/related/islamic/aisha?limit=20
+GET http://namverse-api/api/related/christian/mary?limit=30
+
+
+===========================================
+17. GET SIMILAR SOUNDING NAMES
+===========================================
+
+GET http://namverse-api/api/similar/islamic/muhammad
+GET http://namverse-api/api/similar/christian/michael
+GET http://namverse-api/api/similar/hindu/ram
+GET http://namverse-api/api/similar/islamic/fatima?limit=20
+GET http://namverse-api/api/similar/hindu/sita?limit=30
+
+
+===========================================
+18. GET SEO DATA
+===========================================
+
+GET http://namverse-api/api/seo/islamic/muhammad
+GET http://namverse-api/api/seo/christian/john
+GET http://namverse-api/api/seo/hindu/krishna
+GET http://namverse-api/api/seo/islamic/aisha
+GET http://namverse-api/api/seo/christian/mary
+
+
+===========================================
+19. STORIES ROUTES
+===========================================
+
+GET http://namverse-api/api/stories
+POST http://namverse-api/api/stories
+PUT http://namverse-api/api/stories/:id
+DELETE http://namverse-api/api/stories/:id
+
+
+===========================================
+COMMON QUERY PARAMETERS REFERENCE
+===========================================
+
+PAGINATION:
+- page=1
+- limit=20
+- perPage=50
+
+SORTING:
+- sort=asc (A-Z)
+- sort=desc (Z-A)
+- sort=z-a
+- sort=popular
+- sort=popularity
+- sort=trending
+- sort=length-asc
+- sort=length-desc
+- sort=newest
+- sort=oldest
+- sort=alphabetical
+
+FILTERS:
+- gender=male
+- gender=female
+- gender=unisex
+- origin=Arabic
+- origin=Hebrew
+- origin=Sanskrit
+- language=Arabic
+- language=Urdu
+- language=Sanskrit
+- category=Prophetic
+- category=Biblical
+- category=Divine
+- theme=Nature
+- theme=Peace
+- luckyDay=Friday
+- luckyColor=Green
+- luckyStone=Emerald
+- alphabet=A
+- startsWith=M
+- length=5
+- length=3-7
+- popularity=80
+- trending=true
+- search=muhammad
+
+RELIGIONS:
+- religion=islamic
+- religion=christian
+- religion=hindu
+- religion=global
+- religion=all
+
+
+===========================================
+TESTING TIPS FOR POSTMAN
+===========================================
+
+1. Create a Collection called "NameVerse API"
+
+2. Create Environment Variables:
+   - baseUrl: http://namverse-api
+
+3. Use {{baseUrl}} in your requests:
+   Example: {{baseUrl}}/api/names
+
+4. Test Response Codes:
+   - 200: Success
+   - 400: Bad Request
+   - 404: Not Found
+   - 500: Server Error
+
+5. Save common requests as examples
+
+6. Use Postman Tests to validate responses:
+   pm.test("Status code is 200", function () {
+       pm.response.to.have.status(200);
+   });
+
+7. Check response structure and data types
+
+
+===========================================
+SAMPLE COMBINED QUERIES
+===========================================
+
+# Complex Filter 1
+GET http://namverse-api/api/religion/islamic?gender=male&origin=Arabic&startsWith=M&limit=50&sort=popular&page=1
+
+# Complex Filter 2
+GET http://namverse-api/api/names?religion=hindu&gender=female&language=Sanskrit&theme=Divine&limit=30
+
+# Complex Filter 3
+GET http://namverse-api/api/religion/christian?search=john&origin=Hebrew&length=4-6&sort=alphabetical
+
+# Complex Filter 4
+GET http://namverse-api/api/names?religion=islamic&luckyDay=Friday&luckyColor=Green&popularity=70&trending=true
+
+
+===========================================
+END OF ROUTES DOCUMENT
+===========================================

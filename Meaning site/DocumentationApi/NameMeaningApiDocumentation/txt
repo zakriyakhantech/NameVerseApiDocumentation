@@ -1,0 +1,169 @@
+============================
+NameVerse API Documentation Blueprint
+============================
+
+Goal:
+-----
+Build a complete, SEO-friendly, live-testing API documentation frontend 
+for the NameVerse API, WITHOUT using Next.js. The documentation should 
+allow users to explore endpoints, test requests, and see limits on free vs paid API keys.
+
+---
+
+1. Core Tools
+-------------
+1. OpenAPI:
+   - Standard format to describe API endpoints.
+   - Includes paths, parameters, request/response bodies, authentication, and descriptions.
+   - Your API spec file will be named `openapi.yaml`.
+
+2. Redoc:
+   - Tool that reads OpenAPI spec and generates interactive API documentation.
+   - Supports live try-out of API calls.
+   - Can be fully static (no backend needed).
+   - SEO-friendly when hosted correctly.
+
+3. Hosting:
+   - Any static hosting platform works:
+     - Vercel (recommended)
+     - Netlify
+     - GitHub Pages
+   - Only requirement: `docs.html` and `openapi.yaml` are accessible via URL.
+
+4. Alternative SSGs (Optional):
+   - Docusaurus:
+     - React-based static site generator.
+     - Supports multiple docs pages, versioning, SEO.
+     - Can integrate Redoc plugin to render API documentation.
+   - VuePress / VitePress:
+     - Vue-based SSG, lightweight, SEO-friendly.
+
+---
+
+2. File Structure (Minimal Static)
+---------------------------------
+/public
+  ├─ openapi.yaml      # Your OpenAPI specification file
+  └─ docs.html         # Redoc frontend HTML page
+
+docs.html example:
+-----------------
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NameVerse API Documentation</title>
+    <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"></script>
+  </head>
+  <body>
+    <redoc spec-url="/openapi.yaml" try-it-out-enabled></redoc>
+  </body>
+</html>
+
+Notes:
+- `try-it-out-enabled` allows live testing of API endpoints.
+- `spec-url` points to your OpenAPI YAML file.
+
+---
+
+3. OpenAPI Spec Structure
+-------------------------
+- Define all endpoints, e.g.:
+
+paths:
+  /names/{religion}/{name}:
+    get:
+      summary: "Get name meaning by religion and name"
+      parameters:
+        - name: "religion"
+          in: "path"
+          required: true
+          schema:
+            type: string
+        - name: "name"
+          in: "path"
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: "Successful response"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  meaning:
+                    type: string
+                  origin:
+                    type: string
+      security:
+        - apiKeyAuth: []
+
+- Add authentication info:
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+
+- You can also document limits:
+  - Free tier: 1000 requests/day
+  - Paid tier: unlimited requests
+
+---
+
+4. SEO and Google Indexing
+--------------------------
+- Add `robots.txt` pointing to your docs:
+  User-agent: *
+  Allow: /
+  Sitemap: https://nameverse.vercel.app/sitemap.xml
+
+- Optionally, generate a sitemap for all endpoints.
+- Ensure Redoc HTML pages and YAML spec are accessible publicly.
+
+---
+
+5. Hosting & Deployment
+----------------------
+Option 1: Static HTML (Simplest)
+- Upload `docs.html` + `openapi.yaml` to `/public` folder
+- Deploy to Vercel, Netlify, or GitHub Pages
+- Fully SEO-friendly and indexed by Google
+
+Option 2: Docusaurus
+- Install Docusaurus
+- Integrate Redoc plugin
+- Multi-page documentation with SEO + versioning
+- Deploy as static site
+
+---
+
+6. Monetization
+---------------
+- Free usage with limited API key
+- Paid API key for unlimited requests
+- Optional ads or affiliate links in docs
+- Display rate limits clearly in OpenAPI spec
+
+---
+
+7. Summary
+----------
+- **Core Stack**: OpenAPI + Redoc + Static Hosting
+- **Optional Frameworks**: Docusaurus / VuePress for advanced documentation
+- **Features**:
+  - Live try-out
+  - API limits
+  - Free + Paid plans
+  - SEO-friendly
+  - Easy deployment (no Next.js required)
+
+---
+
+This blueprint ensures that you can start **building your API documentation** efficiently, 
+host it online, allow live API testing, and make it SEO-friendly for indexing. 
+You can scale it for multiple endpoints and even monetize API access.

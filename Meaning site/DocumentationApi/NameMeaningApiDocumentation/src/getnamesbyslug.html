@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NameVerse API - Get Name by Slug</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .api-response {
+      font-family: 'Courier New', monospace;
+    }
+    .parameter-section {
+      transition: all 0.3s ease;
+    }
+    .parameter-section.collapsed {
+      max-height: 60px;
+      overflow: hidden;
+    }
+    .parameter-section.expanded {
+      max-height: 1000px;
+    }
+    .toggle-icon {
+      transition: transform 0.3s ease;
+    }
+    .toggle-icon.rotated {
+      transform: rotate(180deg);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+  
+  <!-- Header -->
+  <header class="bg-white shadow-sm border-b border-gray-200">
+    <div class="container mx-auto px-6 py-6">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+          <div class="w-12 h-12 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
+            <i class="fas fa-user-tag text-white text-xl"></i>
+          </div>
+          <div>
+            <h1 class="text-2xl font-bold gradient-text">NameVerse API</h1>
+            <p class="text-sm text-gray-600">Get name details by slug</p>
+          </div>
+        </div>
+        <div class="flex items-center space-x-3">
+          <button id="liveTestBtn" class="px-4 py-2 bg-purple-50 text-purple-700 rounded-lg hover:bg-purple-100 transition-colors text-sm font-semibold">
+            <i class="fas fa-flask mr-2"></i>Live Testing
+          </button>
+          <a href="/health" class="px-4 py-2 bg-green-50 text-green-700 rounded-lg hover:bg-green-100 transition-colors text-sm font-semibold">
+            <i class="fas fa-heartbeat mr-2"></i>Health Check
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="container mx-auto px-6 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+      
+      <!-- LEFT SIDE: DOCUMENTATION -->
+      <div class="lg:col-span-2 space-y-6">
+        
+        <!-- Endpoint Card -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+              <i class="fas fa-code text-purple-600"></i>
+            </div>
+            <h2 class="text-lg font-bold text-gray-900">Endpoint</h2>
+          </div>
+          
+          <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+            <div class="flex items-center space-x-3 mb-2">
+              <span class="bg-green-500 text-white px-3 py-1 rounded-md font-bold text-xs">GET</span>
+              <code class="text-sm font-semibold text-gray-800">/api/names/{religion}/{slug}</code>
+            </div>
+            <p class="text-sm text-gray-600 mt-3">
+              Retrieve detailed information about a specific name by its slug identifier
+            </p>
+          </div>
+        </div>
+
+        <!-- Parameters -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                <i class="fas fa-route text-blue-600"></i>
+              </div>
+              <h2 class="text-lg font-bold text-gray-900">Path Parameters</h2>
+            </div>
+            <button id="toggleParameters" class="text-gray-500 hover:text-gray-700">
+              <i class="fas fa-chevron-down toggle-icon"></i>
+            </button>
+          </div>
+          
+          <div id="parametersContent" class="parameter-section expanded space-y-4">
+            <!-- Religion -->
+            <div class="border-l-4 border-purple-500 pl-4 py-2">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-semibold text-gray-900 text-sm">religion</span>
+                <span class="text-xs bg-red-100 text-red-700 px-2 py-1 rounded font-semibold">required</span>
+              </div>
+              <p class="text-xs text-gray-600 mb-2">Religion category (lowercase)</p>
+              <div class="bg-gray-50 px-3 py-2 rounded text-xs border border-gray-200">
+                <span class="text-gray-500">Example:</span>
+                <code class="text-purple-600 ml-2">islamic</code>
+                <code class="text-purple-600 ml-2">christian</code>
+                <code class="text-purple-600 ml-2">hindu</code>
+              </div>
+            </div>
+            
+            <!-- Slug -->
+            <div class="border-l-4 border-blue-500 pl-4 py-2">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-semibold text-gray-900 text-sm">slug</span>
+                <span class="text-xs bg-red-100 text-red-700 px-2 py-1 rounded font-semibold">required</span>
+              </div>
+              <p class="text-xs text-gray-600 mb-2">Unique identifier for the name (lowercase, hyphenated)</p>
+              <div class="bg-gray-50 px-3 py-2 rounded text-xs border border-gray-200">
+                <span class="text-gray-500">Example:</span>
+                <code class="text-purple-600 ml-2">zakriya</code>
+                <code class="text-purple-600 ml-2">ismail</code>
+                <code class="text-purple-600 ml-2">muhammad</code>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Response Schema -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+              <i class="fas fa-database text-green-600"></i>
+            </div>
+            <h2 class="text-lg font-bold text-gray-900">Response Schema</h2>
+          </div>
+          
+          <div class="space-y-3 text-xs">
+            <div class="bg-gray-50 p-3 rounded border border-gray-200">
+              <code class="text-purple-600">id</code>
+              <span class="text-gray-500 ml-2">integer</span>
+              <p class="text-gray-600 mt-1">Unique identifier</p>
+            </div>
+            <div class="bg-gray-50 p-3 rounded border border-gray-200">
+              <code class="text-purple-600">name</code>
+              <span class="text-gray-500 ml-2">string</span>
+              <p class="text-gray-600 mt-1">Name text</p>
+            </div>
+            <div class="bg-gray-50 p-3 rounded border border-gray-200">
+              <code class="text-purple-600">slug</code>
+              <span class="text-gray-500 ml-2">string</span>
+              <p class="text-gray-600 mt-1">URL-friendly identifier</p>
+            </div>
+            <div class="bg-gray-50 p-3 rounded border border-gray-200">
+              <code class="text-purple-600">religion</code>
+              <span class="text-gray-500 ml-2">string</span>
+              <p class="text-gray-600 mt-1">Origin/religion</p>
+            </div>
+            <div class="bg-gray-50 p-3 rounded border border-gray-200">
+              <code class="text-purple-600">meaning</code>
+              <span class="text-gray-500 ml-2">string</span>
+              <p class="text-gray-600 mt-1">Name meaning</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Examples -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
+              <i class="fas fa-lightbulb text-yellow-600"></i>
+            </div>
+            <h2 class="text-lg font-bold text-gray-900">Examples</h2>
+          </div>
+          
+          <div class="space-y-3 text-xs">
+            <div>
+              <p class="text-gray-600 mb-1">Get details for "Zakriya" (Islamic)</p>
+              <code class="block bg-gray-50 px-3 py-2 rounded text-purple-600 border border-gray-200">/api/names/islamic/zakriya</code>
+            </div>
+            <div>
+              <p class="text-gray-600 mb-1">Get details for "Ismail" (Islamic)</p>
+              <code class="block bg-gray-50 px-3 py-2 rounded text-purple-600 border border-gray-200">/api/names/islamic/ismail</code>
+            </div>
+            <div>
+              <p class="text-gray-600 mb-1">Get details for "Muhammad" (Islamic)</p>
+              <code class="block bg-gray-50 px-3 py-2 rounded text-purple-600 border border-gray-200">/api/names/islamic/muhammad</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- URL Builder -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center">
+              <i class="fas fa-link text-indigo-600"></i>
+            </div>
+            <h2 class="text-lg font-bold text-gray-900">URL Builder</h2>
+          </div>
+          
+          <div class="space-y-3">
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-2">Generated URL</label>
+              <div class="flex items-center space-x-2">
+                <div class="flex-1 bg-gray-900 text-green-400 p-3 rounded-lg font-mono text-xs break-all" id="generatedUrl">
+                  https://namverse-api.vercel.app/api/names/islamic/zakriya
+                </div>
+                <button id="copyUrlBtn" class="px-3 py-2 bg-gray-700 hover:bg-gray-800 text-white rounded-lg text-xs font-semibold transition-colors">
+                  <i class="fas fa-copy"></i>
+                </button>
+              </div>
+            </div>
+            
+            <div class="pt-3 border-t border-gray-200">
+              <label class="block text-xs font-semibold text-gray-700 mb-2">Quick Actions</label>
+              <div class="grid grid-cols-2 gap-2">
+                <button id="testMuhammad" class="px-3 py-2 bg-green-50 hover:bg-green-100 text-green-700 rounded-lg text-xs font-semibold transition-colors border border-green-200">
+                  Test: Muhammad
+                </button>
+                <button id="testZakriya" class="px-3 py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-lg text-xs font-semibold transition-colors border border-blue-200">
+                  Test: Zakriya
+                </button>
+                <button id="testGirls" class="px-3 py-2 bg-pink-50 hover:bg-pink-100 text-pink-700 rounded-lg text-xs font-semibold transition-colors border border-pink-200">
+                  Test: Girls
+                </button>
+                <button id="resetBtn" class="px-3 py-2 bg-gray-50 hover:bg-gray-100 text-gray-700 rounded-lg text-xs font-semibold transition-colors border border-gray-200">
+                  Reset All
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT SIDE: TESTING -->
+      <div class="lg:col-span-3">
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div class="flex items-center space-x-3 mb-6">
+            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+              <i class="fas fa-flask text-green-600"></i>
+            </div>
+            <h2 class="text-lg font-bold text-gray-900">Test API</h2>
+          </div>
+
+          <!-- Request Section -->
+          <div class="mb-6">
+            <label class="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Request URL</label>
+            <div class="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm break-all" id="apiUrl">
+              https://namverse-api.vercel.app/api/names/zakriya
+            </div>
+          </div>
+
+          <!-- Form -->
+          <form id="testForm" class="mb-6">
+            
+            <!-- Religion Select -->
+            <div class="mb-4">
+              <label for="religion" class="block text-xs font-semibold text-gray-700 mb-2">RELIGION</label>
+              <select 
+                id="religion" 
+                name="religion"
+                class="w-full px-4 py-3 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all"
+                required
+              >
+                <option value="islamic">Islamic</option>
+                <option value="christian">Christian</option>
+                <option value="hindu">Hindu</option>
+              </select>
+              <p class="text-xs text-gray-500 mt-2">
+                <i class="fas fa-info-circle mr-1"></i>
+                Select the religion category
+              </p>
+            </div>
+
+            <div class="mb-4">
+              <label for="slug" class="block text-xs font-semibold text-gray-700 mb-2">NAME SLUG</label>
+              <input 
+                type="text" 
+                id="slug" 
+                name="slug" 
+                placeholder="zakriya" 
+                value="zakriya"
+                class="w-full px-4 py-3 text-sm border border-gray-300 rounded-lg lowercase focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all"
+                required
+              >
+              <p class="text-xs text-gray-500 mt-2">
+                <i class="fas fa-info-circle mr-1"></i>
+                Enter the slug of the name (e.g., zakriya, ismail, muhammad)
+              </p>
+            </div>
+
+            <!-- Quick Select Buttons -->
+            <div class="mb-4">
+              <label class="block text-xs font-semibold text-gray-700 mb-2">QUICK SELECT</label>
+              <div class="flex flex-wrap gap-2">
+                <button type="button" class="quick-select px-3 py-2 bg-purple-50 text-purple-700 rounded-lg text-xs font-semibold hover:bg-purple-100 transition-colors" data-religion="islamic" data-slug="zakriya">
+                  Zakriya (Islamic)
+                </button>
+                <button type="button" class="quick-select px-3 py-2 bg-purple-50 text-purple-700 rounded-lg text-xs font-semibold hover:bg-purple-100 transition-colors" data-religion="islamic" data-slug="ismail">
+                  Ismail (Islamic)
+                </button>
+                <button type="button" class="quick-select px-3 py-2 bg-purple-50 text-purple-700 rounded-lg text-xs font-semibold hover:bg-purple-100 transition-colors" data-religion="islamic" data-slug="muhammad">
+                  Muhammad (Islamic)
+                </button>
+                <button type="button" class="quick-select px-3 py-2 bg-blue-50 text-blue-700 rounded-lg text-xs font-semibold hover:bg-blue-100 transition-colors" data-religion="christian" data-slug="john">
+                  John (Christian)
+                </button>
+                <button type="button" class="quick-select px-3 py-2 bg-green-50 text-green-700 rounded-lg text-xs font-semibold hover:bg-green-100 transition-colors" data-religion="hindu" data-slug="arjun">
+                  Arjun (Hindu)
+                </button>
+              </div>
+            </div>
+
+            <button 
+              type="submit" 
+              id="executeBtn"
+              class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold py-3 px-6 rounded-lg hover:shadow-lg transform hover:scale-[1.02] transition-all duration-200 text-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+            >
+              <i class="fas fa-paper-plane mr-2"></i>Send Request
+            </button>
+          </form>
+
+          <!-- Loading -->
+          <div id="loading" class="hidden text-center py-8">
+            <div class="inline-flex items-center space-x-3">
+              <svg class="animate-spin h-6 w-6 text-purple-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <span class="text-purple-600 font-semibold">Loading...</span>
+            </div>
+          </div>
+
+          <!-- Response Section -->
+          <div id="responseSection" class="hidden">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center space-x-3">
+                <i class="fas fa-reply text-gray-600"></i>
+                <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wide">Response</h3>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span id="statusBadge" class="px-3 py-1 rounded-md font-semibold text-xs"></span>
+                <button 
+                  id="copyBtn"
+                  class="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md text-xs font-semibold transition-colors"
+                  title="Copy to clipboard"
+                >
+                  <i class="fas fa-copy mr-1"></i>Copy
+                </button>
+              </div>
+            </div>
+            <div class="bg-gray-900 rounded-lg overflow-hidden border border-gray-700">
+              <pre id="responseBody" class="text-gray-100 p-5 text-xs overflow-x-auto max-h-96 overflow-y-auto api-response leading-relaxed"></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('testForm');
+    const slugInput = document.getElementById('slug');
+    const apiUrlDisplay = document.getElementById('apiUrl');
+    const generatedUrlDisplay = document.getElementById('generatedUrl');
+    const executeBtn = document.getElementById('executeBtn');
+    const responseSection = document.getElementById('responseSection');
+    const statusBadge = document.getElementById('statusBadge');
+    const responseBody = document.getElementById('responseBody');
+    const loading = document.getElementById('loading');
+    const copyBtn = document.getElementById('copyBtn');
+    const copyUrlBtn = document.getElementById('copyUrlBtn');
+    const quickSelectBtns = document.querySelectorAll('.quick-select');
+    const liveTestBtn = document.getElementById('liveTestBtn');
+    const testMuhammad = document.getElementById('testMuhammad');
+    const testZakriya = document.getElementById('testZakriya');
+    const testGirls = document.getElementById('testGirls');
+    const resetBtn = document.getElementById('resetBtn');
+    const toggleParameters = document.getElementById('toggleParameters');
+    const parametersContent = document.getElementById('parametersContent');
+
+    const BASE_URL = 'https://namverse-api.vercel.app/api/names';
+
+    // Get religion and slug from current URL path
+    function getParamsFromUrl() {
+      const path = window.location.pathname;
+      const parts = path.split('/').filter(p => p);
+      
+      // Expected format: /names/{religion}/{slug}
+      if (parts.length >= 3 && parts[0] === 'names') {
+        return {
+          religion: parts[1],
+          slug: parts[2]
+        };
+      }
+      
+      return { religion: 'islamic', slug: 'zakriya' };
+    }
+
+    // Initialize with default values or URL params
+    function initializeForm() {
+      const params = getParamsFromUrl();
+      slugInput.value = params.slug;
+      updateUrlDisplay();
+    }
+
+    function updateUrlDisplay() {
+      const slug = slugInput.value.trim().toLowerCase();
+      const params = getParamsFromUrl();
+      const religion = params.religion;
+      
+      // Build API URL with religion: /api/names/{religion}/{slug}
+      const fullUrl = BASE_URL + '/' + religion + '/' + (slug || '{slug}');
+      
+      apiUrlDisplay.textContent = fullUrl;
+      generatedUrlDisplay.textContent = fullUrl;
+      
+      // Keep URL clean without query parameters
+      const newUrl = window.location.origin + window.location.pathname;
+      window.history.replaceState(null, null, newUrl);
+    }
+
+    function setFormValues(values) {
+      form.reset();
+      
+      Object.keys(values).forEach(key => {
+        const element = document.getElementById(key);
+        if (element) {
+          element.value = values[key];
+        }
+      });
+      
+      updateUrlDisplay();
+    }
+
+    function showNotification(message, type = 'success') {
+      const notification = document.createElement('div');
+      notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg text-white font-semibold text-sm z-50 transform transition-transform duration-300 ${
+        type === 'success' ? 'bg-green-500' : 'bg-red-500'
+      }`;
+      notification.textContent = message;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+    }
+
+    function loadUrlParameters() {
+      const params = getParamsFromUrl();
+      slugInput.value = params.slug;
+      updateUrlDisplay();
+    }
+
+    function toggleParametersSection() {
+      const isExpanded = parametersContent.classList.contains('expanded');
+      
+      if (isExpanded) {
+        parametersContent.classList.remove('expanded');
+        parametersContent.classList.add('collapsed');
+        toggleParameters.querySelector('.toggle-icon').classList.add('rotated');
+      } else {
+        parametersContent.classList.remove('collapsed');
+        parametersContent.classList.add('expanded');
+        toggleParameters.querySelector('.toggle-icon').classList.remove('rotated');
+      }
+    }
+
+    // Event Listeners
+    slugInput.addEventListener('input', (e) => {
+      e.target.value = e.target.value.toLowerCase();
+      updateUrlDisplay();
+    });
+
+    quickSelectBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        slugInput.value = btn.dataset.slug;
+        updateUrlDisplay();
+      });
+    });
+
+    copyBtn.addEventListener('click', async () => {
+      const text = responseBody.textContent;
+      try {
+        await navigator.clipboard.writeText(text);
+        const originalHTML = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="fas fa-check mr-1"></i>Copied!';
+        copyBtn.classList.add('bg-green-100', 'text-green-700');
+        copyBtn.classList.remove('bg-gray-100', 'text-gray-700');
+        
+        setTimeout(() => {
+          copyBtn.innerHTML = originalHTML;
+          copyBtn.classList.remove('bg-green-100', 'text-green-700');
+          copyBtn.classList.add('bg-gray-100', 'text-gray-700');
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy:', err);
+      }
+    });
+
+    copyUrlBtn.addEventListener('click', async () => {
+      const text = generatedUrlDisplay.textContent;
+      try {
+        await navigator.clipboard.writeText(text);
+        showNotification('URL copied to clipboard!');
+      } catch (err) {
+        showNotification('Failed to copy URL', 'error');
+      }
+    });
+
+    liveTestBtn.addEventListener('click', () => {
+      const slug = slugInput.value.trim().toLowerCase();
+      const params = getParamsFromUrl();
+      const religion = params.religion;
+      
+      if (slug) {
+        // Use the religion from URL to build the API endpoint
+        const url = BASE_URL + '/' + religion + '/' + slug;
+        
+        // Show loading notification
+        showNotification('Fetching name data...', 'success');
+        
+        fetch(url)
+          .then(response => response.json())
+          .then(data => {
+            if (data && data.religion) {
+              const fetchedReligion = data.religion.toLowerCase();
+              const testUrl = '/names/' + fetchedReligion + '/' + slug;
+              window.location.href = testUrl;
+            } else {
+              // Fallback to current religion if API doesn't return one
+              const testUrl = '/names/' + religion + '/' + slug;
+              window.location.href = testUrl;
+            }
+          })
+          .catch(err => {
+            showNotification('Failed to fetch name data', 'error');
+            console.error('Error:', err);
+          });
+      } else {
+        showNotification('Please enter a slug first', 'error');
+      }
+    });
+
+    testMuhammad.addEventListener('click', () => {
+      setFormValues({ slug: 'muhammad' });
+      showNotification('Muhammad test parameters loaded');
+    });
+
+    testZakriya.addEventListener('click', () => {
+      setFormValues({ slug: 'zakriya' });
+      showNotification('Zakriya test parameters loaded');
+    });
+
+    testGirls.addEventListener('click', () => {
+      setFormValues({ slug: 'aisha' });
+      showNotification('Girls names test parameters loaded');
+    });
+
+    resetBtn.addEventListener('click', () => {
+      form.reset();
+      slugInput.value = 'zakriya';
+      updateUrlDisplay();
+      showNotification('Form reset to default values');
+    });
+
+    toggleParameters.addEventListener('click', toggleParametersSection);
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const slug = slugInput.value.trim().toLowerCase();
+      
+      if (!slug) {
+        alert('Please enter a name slug');
+        return;
+      }
+      
+      executeBtn.disabled = true;
+      loading.classList.remove('hidden');
+      responseSection.classList.add('hidden');
+
+      try {
+        const params = getParamsFromUrl();
+        const religion = params.religion;
+        
+        // Build API URL with religion: /api/names/{religion}/{slug}
+        const url = BASE_URL + '/' + religion + '/' + slug;
+        
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        statusBadge.textContent = response.status + ' ' + response.statusText;
+        statusBadge.className = response.ok 
+          ? 'px-3 py-1 rounded-md font-semibold text-xs bg-green-500 text-white' 
+          : 'px-3 py-1 rounded-md font-semibold text-xs bg-red-500 text-white';
+        
+        responseBody.textContent = JSON.stringify(data, null, 2);
+        responseSection.classList.remove('hidden');
+        
+      } catch (error) {
+        statusBadge.textContent = 'Error';
+        statusBadge.className = 'px-3 py-1 rounded-md font-semibold text-xs bg-red-500 text-white';
+        responseBody.textContent = JSON.stringify({ error: error.message }, null, 2);
+        responseSection.classList.remove('hidden');
+      } finally {
+        executeBtn.disabled = false;
+        loading.classList.add('hidden');
+      }
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initializeForm();
+      loadUrlParameters();
+    });
+  </script>
+</body>
+</html>

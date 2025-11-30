@@ -1,0 +1,215 @@
+openapi: 3.1.0
+info:
+  title: NameVerse API
+  version: 1.0.0
+  description: |
+    ## Welcome to NameVerse API
+    
+    NameVerse API provides comprehensive name data across multiple religions and cultures. 
+    
+    ### Features
+    - 🔍 Filter names by alphabet
+    - 🕌 Multiple religious/cultural origins
+    - ⚡ Fast and reliable
+    - 📊 Customizable result limits
+    
+    ### Quick Start
+    Try the **"Try it out"** button below to test the API directly from this page!
+    
+  contact:
+    name: API Support
+    email: support@nameverse.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://namverse-api.vercel.app/api
+    description: Production Server
+
+tags:
+  - name: Names
+    description: Operations related to retrieving names
+
+paths:
+  /names:
+    get:
+      tags:
+        - Names
+      summary: Get a list of names
+      description: |
+        Retrieve a list of names filtered by starting alphabet and religion.
+        
+        ### Use Cases
+        - Generate name suggestions for applications
+        - Build naming databases
+        - Create baby name finders
+        - Cultural name research
+        
+        ### Examples
+        - Get 10 Christian names starting with 'A': `?limit=10&alphabet=A&religion=christian`
+        - Get 25 Islamic names: `?limit=25&religion=islamic`
+        - Get 100 names starting with 'M': `?limit=100&alphabet=M`
+        
+      operationId: getNames
+      parameters:
+        - name: limit
+          in: query
+          description: Maximum number of names to return
+          required: false
+          schema:
+            type: integer
+            default: 50
+            minimum: 1
+            maximum: 500
+            example: 50
+          example: 50
+          
+        - name: alphabet
+          in: query
+          description: Filter names by first letter (case-insensitive)
+          required: false
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 1
+            pattern: '^[A-Za-z]$'
+            example: A
+          examples:
+            letterA:
+              summary: Names starting with A
+              value: A
+            letterM:
+              summary: Names starting with M
+              value: M
+            letterZ:
+              summary: Names starting with Z
+              value: Z
+              
+        - name: religion
+          in: query
+          description: Filter names by religious or cultural origin
+          required: false
+          schema:
+            type: string
+            enum: 
+              - christian
+              - islamic
+              - hindu
+            example: christian
+          examples:
+            christian:
+              summary: Christian names
+              value: christian
+            islamic:
+              summary: Islamic names
+              value: islamic
+            hindu:
+              summary: Hindu names
+              value: hindu
+              
+      responses:
+        '200':
+          description: Successfully retrieved list of names
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  count:
+                    type: integer
+                    description: Number of names returned
+                    example: 3
+                  data:
+                    type: array
+                    items:
+                      type: string
+                    example: 
+                      - Samuel
+                      - Sarah
+                      - Simon
+              examples:
+                christianNames:
+                  summary: Christian Names Example
+                  value:
+                    success: true
+                    count: 3
+                    data:
+                      - Samuel
+                      - Sarah
+                      - Simon
+                islamicNames:
+                  summary: Islamic Names Example
+                  value:
+                    success: true
+                    count: 3
+                    data:
+                      - Muhammad
+                      - Maryam
+                      - Mahmoud
+                hinduNames:
+                  summary: Hindu Names Example
+                  value:
+                    success: true
+                    count: 3
+                    data:
+                      - Aarav
+                      - Ananya
+                      - Arjun
+                      
+        '400':
+          description: Bad request - Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "Invalid alphabet parameter. Must be a single letter A-Z"
+                
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitResponse'
+              example:
+                error: "You have exceeded 50 requests per day"
+                retryAfter: 86400
+                
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "Internal server error. Please try again later."
+
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Error message describing what went wrong
+          example: "Internal server error"
+          
+    RateLimitResponse:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Rate limit error message
+          example: "You have exceeded 50 requests per day"
+        retryAfter:
+          type: integer
+          description: Seconds until rate limit resets
+          example: 86400

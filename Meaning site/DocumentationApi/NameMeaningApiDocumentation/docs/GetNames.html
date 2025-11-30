@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NameVerse API Documentation</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .api-response {
+      font-family: 'Courier New', monospace;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+  
+  <!-- Header -->
+  <header class="bg-white shadow-sm border-b border-gray-200">
+    <div class="container mx-auto px-6 py-6">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+          <div class="w-12 h-12 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
+            <i class="fas fa-user-tag text-white text-xl"></i>
+          </div>
+          <div>
+            <h1 class="text-2xl font-bold gradient-text">NameVerse API</h1>
+            <p class="text-sm text-gray-600">Get names by filters</p>
+          </div>
+        </div>
+        <div class="flex items-center space-x-3">
+          <a href="/getnames" class="px-4 py-2 bg-purple-50 text-purple-700 rounded-lg hover:bg-purple-100 transition-colors text-sm font-semibold">
+            <i class="fas fa-flask mr-2"></i>Live Testing
+          </a>
+          <a href="/health" class="px-4 py-2 bg-green-50 text-green-700 rounded-lg hover:bg-green-100 transition-colors text-sm font-semibold">
+            <i class="fas fa-heartbeat mr-2"></i>Health Check
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="container mx-auto px-6 py-8">
+    
+    <div class="bg-white rounded-xl border border-gray-200 overflow-hidden mb-6">
+      
+      <!-- Endpoint Header -->
+      <div class="bg-gradient-to-r from-purple-600 to-indigo-600 p-6">
+        <h2 class="text-2xl font-bold text-white mb-3">Get Names</h2>
+        <div class="flex items-center space-x-3">
+          <span class="bg-green-500 text-white px-3 py-1 rounded-md font-bold text-sm">GET</span>
+          <code class="text-white text-lg font-mono">/api/names</code>
+        </div>
+        <p class="text-purple-100 mt-3">
+          Retrieve a filtered list of names with pagination, cultural filters, and lucky attributes.
+        </p>
+      </div>
+
+      <div class="p-6">
+        
+        <!-- Description -->
+        <div class="mb-6">
+          <h3 class="text-lg font-bold text-gray-900 mb-3">Description</h3>
+          <p class="text-gray-600 leading-relaxed">
+            This endpoint returns a paginated list of names based on comprehensive filtering criteria. It supports filtering by 
+            starting alphabet (A-Z), gender (boy/girl), religious/cultural origin (Christian, Islamic, Hindu), language, category, 
+            theme, and lucky attributes including lucky day, color, and stone.
+          </p>
+        </div>
+
+        <!-- Parameters -->
+        <div class="mb-6">
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Query Parameters</h3>
+          <div class="space-y-4">
+            
+            <!-- Pagination Parameters -->
+            <div class="border-t-4 border-indigo-500 bg-indigo-50 rounded-lg p-4">
+              <h4 class="font-bold text-indigo-900 mb-3 text-sm uppercase tracking-wide">Pagination</h4>
+              
+              <div class="mb-4">
+                <div class="flex items-start justify-between mb-2">
+                  <div class="flex items-center space-x-2">
+                    <code class="text-purple-600 font-semibold">page</code>
+                    <span class="text-xs bg-white px-2 py-1 rounded">integer</span>
+                    <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">optional</span>
+                  </div>
+                </div>
+                <p class="text-sm text-gray-600 mb-2">
+                  Page number for pagination.
+                </p>
+                <div class="bg-white p-2 rounded text-xs">
+                  <div class="text-gray-500">Default: <span class="font-semibold text-gray-900">1</span></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex items-start justify-between mb-2">
+                  <div class="flex items-center space-x-2">
+                    <code class="text-purple-600 font-semibold">limit</code>
+                    <span class="text-xs bg-white px-2 py-1 rounded">integer</span>
+                    <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">optional</span>
+                  </div>
+                </div>
+                <p class="text-sm text-gray-600 mb-2">
+                  Maximum number of names to return per page.
+                </p>
+                <div class="grid grid-cols-3 gap-3 text-xs">
+                  <div class="bg-white p-2 rounded">
+                    <div class="text-gray-500">Default</div>
+                    <div class="font-semibold text-gray-900">20</div>
+                  </div>
+                  <div class="bg-white p-2 rounded">
+                    <div class="text-gray-500">Minimum</div>
+                    <div class="font-semibold text-gray-900">1</div>
+                  </div>
+                  <div class="bg-white p-2 rounded">
+                    <div class="text-gray-500">Maximum</div>
+                    <div class="font-semibold text-gray-900">500</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Basic Filters -->
+            <div class="border-t-4 border-purple-500 bg-purple-50 rounded-lg p-4">
+              <h4 class="font-bold text-purple-900 mb-3 text-sm uppercase tracking-wide">Basic Filters</h4>
+              
+              <div class="mb-4">
+                <div class="flex items-start justify-between mb-2">
+                  <div class="flex items-center space-x-2">
+                    <code class="text-purple-600 font-semibold">gender</code>
+                    <span class="text-xs bg-white px-2 py-1 rounded">enum</span>
+                    <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">optional</span>
+                  </div>
+                </div>
+                <p class="text-sm text-gray-600 mb-2">
+                  Filter names by gender.
+                </p>
+                <div class="bg-white p-2 rounded text-xs">
+                  <div class="text-gray-500 mb-1">Allowed Values</div>
+                  <div class="flex gap-2 flex-wrap">
+                    <span class="bg-purple-100 text-purple-700 px-2 py-1 rounded font-semibold">boy</span>
+                    <span class="bg-purple-100 text-purple-700 px-2 py-1 rounded font-semibold">girl</span>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex items-start justify-between mb-2">
+                  <div class="flex items-center space-x-2">
+                    <code class="text-purple-600 font-semibold">alphabet</code>
+                    <span class="text-xs bg-white px-2 py-1 rounded">string</span>
+                    <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">optional</span>
+                  </div>
+                </div>
+                <p class="text-sm text-gray-600 mb-2">
+                  Filter names by their starting letter. Case-insensitive, accepts any letter A-Z.
+                </p>
+                <div class="bg-white p-2 rounded text-xs">
+                  <div class="text-gray-500 mb-1">Examples</div>
+                  <div class="flex gap-2 flex-wrap">
+                    <span class="bg-gray-100 border px-2 py-1 rounded font-mono">A</span>
+                    <span class="bg-gray-100 border px-2 py-1 rounded font-mono">M</span>
+                    <span class="bg-gray-100 border px-2 py-1 rounded font-mono">Z</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cultural Filters -->
+            <div class="border-t-4 border-green-500 bg-green-50 rounded-lg p-4">
+              <h4 class="font-bold text-green-900 mb-3 text-sm uppercase tracking-wide">Cultural Filters</h4>
+              
+              <div class="mb-4">
+                <div class="flex items-start justify-between mb-2">
+                  <div class="flex items-center space-x-2">
+                    <code class="text-purple-600 font-semibold">religion</code>
+                    <span class="text-xs bg-white px-2 py-1 rounded">enum</span>
+                    <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">optional</span>
+                  </div>
+                </div>
+                <p class="text-sm text-gray-600 mb-2">
+                  Filter names by religious or cultural origin.
+                </p>
+                <div class="bg-white p-2 rounded text-xs">
+                  <div class="text-gray-500 mb-1">Allowed Values</div>
+                  <div class="flex gap-2 flex-wrap">
+                    <span class="bg-green-100 text-green-700 px-2 py-1 rounded font-semibold">christian</span>
+                    <span class="bg-green-100 text-green-700 px-2 py-1 rounded font-semibold">islamic</span>
+                    <span class="bg-green-100 text-green-700 px-2 py-1 rounded font-semibold">hindu</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <div class="flex items-start justify-between mb-2">
+                  <div class="flex items-center space-x-2">
+                    <code class="text-purple-600 font-semibold">origin</code>
+                    <span class="text-xs bg-white px-2 py-1 rounded">string</span>
+                    <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">optional</span>
+                  </div>
+                </div>
+                <p class="text-sm text-gray-600 mb-2">
+                  Filter names by cultural origin.
+                </p>
+                <div class="bg-white p-2 rounded text-xs">
+                  <div class="text-gray-500 mb-1">Examples</div>
+                  <div class="flex gap-2 flex-wrap">
+                    <span class="bg-gray-100 border px-2 py-1 rounded font-mono">Arabic</span>
+                    <span class="bg-gray-100 border px-2 py-1 rounded font-mono">Greek</span>
+                    <span class="bg-gray-100 border px-2 py-1 rounded font-mono">Latin</span>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex items-start justify-between mb-2">
+                  <div class="flex items-center space-x-2">
+                    <code class="text-purple-600 font-semibold">language</code>
+                    <span class="text-xs bg-white px-2 py-1 rounded">string</span>
+                    <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">optional</span>
+                  </div>
+                </div>
+                <p class="text-sm text-gray-600 mb-2">
+                  Filter names by language origin.
+                </p>
+                <div class="bg-white p-2 rounded text-xs">
+                  <div class="text-gray-500 mb-1">Examples</div>
+                  <div class="flex gap-2 flex-wrap">
+                    <span class="bg-gray-100 border px-2 py-1 rounded font-mono">Hebrew</span>
+                    <span class="bg-gray-100 border px-2 py-1 rounded font-mono">Sanskrit</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Thematic Filters -->
+            <div class="border-t-4 border-yellow-500 bg-yellow-50 rounded-lg p-4">
+              <h4 class="font-bold text-yellow-900 mb-3 text-sm uppercase tracking-wide">Thematic Filters</h4>
+              
+              <div class="mb-4">
+                <div class="flex items-start justify-between mb-2">
+                  <div class="flex items-center space-x-2">
+                    <code class="text-purple-600 font-semibold">category</code>
+                    <span class="text-xs bg-white px-2 py-1 rounded">string</span>
+                    <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">optional</span>
+                  </div>
+                </div>
+                <p class="text-sm text-gray-600 mb-2">
+                  Filter names by category.
+                </p>
+                <div class="bg-white p-2 rounded text-xs">
+                  <div class="text-gray-500 mb-1">Examples</div>
+                  <div class="flex gap-2 flex-wrap">
+                    <span class="bg-gray-100 border px-2 py-1 rounded font-mono">Modern</span>
+                    <span class="bg-gray-100 border px-2 py-1 rounded font-mono">Traditional</span>
+                    <span class="bg-gray-100 border px-2 py-1 rounded font-mono">Classic</span>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex items-start justify-between mb-2">
+                  <div class="flex items-center space-x-2">
+                    <code class="text-purple-600 font-semibold">theme</code>
+                    <span class="text-xs bg-white px-2 py-1 rounded">string</span>
+                    <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">optional</span>
+                  </div>
+                </div>
+                <p class="text-sm text-gray-600 mb-2">
+                  Filter names by thematic meaning.
+                </p>
+                <div class="bg-white p-2 rounded text-xs">
+                  <div class="text-gray-500 mb-1">Examples</div>
+                  <div class="flex gap-2 flex-wrap">
+                    <span class="bg-gray-100 border px-2 py-1 rounded font-mono">Nature</span>
+                    <span class="bg-gray-100 border px-2 py-1 rounded font-mono">Strength</span>
+                    <span class="bg-gray-100 border px-2 py-1 rounded font-mono">Wisdom</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Lucky Attributes -->
+            <div class="border-t-4 border-pink-500 bg-pink-50 rounded-lg p-4">
+              <h4 class="font-bold text-pink-900 mb-3 text-sm uppercase tracking-wide">Lucky Attributes</h4>
+              
+              <div class="mb-4">
+                <div class="flex items-start justify-between mb-2">
+                  <div class="flex items-center space-x-2">
+                    <code class="text-purple-600 font-semibold">luckyDay</code>
+                    <span class="text-xs bg-white px-2 py-1 rounded">string</span>
+                    <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">optional</span>
+                  </div>
+                </div>
+                <p class="text-sm text-gray-600 mb-2">
+                  Filter names by lucky day of the week.
+                </p>
+                <div class="bg-white p-2 rounded text-xs">
+                  <div class="text-gray-500 mb-1">Examples</div>
+                  <div class="flex gap-2 flex-wrap">
+                    <span class="bg-gray-100 border px-2 py-1 rounded font-mono">Monday</span>
+                    <span class="bg-gray-100 border px-2 py-1 rounded font-mono">Friday</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <div class="flex items-start justify-between mb-2">
+                  <div class="flex items-center space-x-2">
+                    <code class="text-purple-600 font-semibold">luckyColor</code>
+                    <span class="text-xs bg-white px-2 py-1 rounded">string</span>
+                    <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">optional</span>
+                  </div>
+                </div>
+                <p class="text-sm text-gray-600 mb-2">
+                  Filter names by lucky color.
+                </p>
+                <div class="bg-white p-2 rounded text-xs">
+                  <div class="text-gray-500 mb-1">Examples</div>
+                  <div class="flex gap-2 flex-wrap">
+                    <span class="bg-gray-100 border px-2 py-1 rounded font-mono">Blue</span>
+                    <span class="bg-gray-100 border px-2 py-1 rounded font-mono">Red</span>
+                    <span class="bg-gray-100 border px-2 py-1 rounded font-mono">Green</span>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex items-start justify-between mb-2">
+                  <div class="flex items-center space-x-2">
+                    <code class="text-purple-600 font-semibold">luckyStone</code>
+                    <span class="text-xs bg-white px-2 py-1 rounded">string</span>
+                    <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">optional</span>
+                  </div>
+                </div>
+                <p class="text-sm text-gray-600 mb-2">
+                  Filter names by lucky gemstone.
+                </p>
+                <div class="bg-white p-2 rounded text-xs">
+                  <div class="text-gray-500 mb-1">Examples</div>
+                  <div class="flex gap-2 flex-wrap">
+                    <span class="bg-gray-100 border px-2 py-1 rounded font-mono">Ruby</span>
+                    <span class="bg-gray-100 border px-2 py-1 rounded font-mono">Sapphire</span>
+                    <span class="bg-gray-100 border px-2 py-1 rounded font-mono">Emerald</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Request Example -->
+        <div class="mb-6">
+          <h3 class="text-lg font-bold text-gray-900 mb-3">Request Example</h3>
+          <div class="code-block" style="background: #1e293b; border-radius: 8px; padding: 16px; overflow-x: auto;">
+            <code style="color: #10b981; font-family: 'Courier New', monospace; font-size: 14px;">GET https://namverse-api.vercel.app/api/names?page=1&limit=20&gender=boy&religion=islamic&alphabet=M</code>
+          </div>
+        </div>
+
+        <!-- Response -->
+        <div class="mb-6">
+          <h3 class="text-lg font-bold text-gray-900 mb-3">Response Structure</h3>
+          
+          <!-- Success Response -->
+          <div class="mb-4">
+            <div class="flex items-center space-x-2 mb-2">
+              <span class="bg-green-500 text-white px-3 py-1 rounded text-sm font-bold">200</span>
+              <span class="text-sm font-semibold text-gray-700">Success</span>
+            </div>
+            <div class="code-block" style="background: #1e293b; border-radius: 8px; padding: 16px; overflow-x: auto;">
+              <pre><code style="color: #10b981; font-family: 'Courier New', monospace; font-size: 14px;">{
+  "success": true,
+  "count": 20,
+  "data": {
+    "names": [
+      {
+        "id": "123",
+        "name": "Muhammad",
+        "slug": "muhammad",
+        "gender": "boy",
+        "meaning": "Highly praised, praiseworthy",
+        "origin": "Arabic",
+        "religion": "islamic",
+        "language": "Arabic",
+        "category": "Traditional",
+        "theme": "Virtue",
+        "luckyColor": "Green",
+        "luckyDay": "Friday",
+        "luckyStone": "Emerald"
+      }
+      // ... more names
+    ],
+    "pagination": {
+      "currentPage": 1,
+      "totalPages": 50,
+      "totalNames": 1000,
+      "hasNextPage": true,
+      "hasPrevPage": false
+    }
+  }
+}</code></pre>
+            </div>
+          </div>
+
+          <!-- Error Response -->
+          <div>
+            <div class="flex items-center space-x-2 mb-2">
+              <span class="bg-red-500 text-white px-3 py-1 rounded text-sm font-bold">400</span>
+              <span class="text-sm font-semibold text-gray-700">Bad Request</span>
+            </div>
+            <div class="code-block" style="background: #1e293b; border-radius: 8px; padding: 16px; overflow-x: auto;">
+              <pre><code style="color: #10b981; font-family: 'Courier New', monospace; font-size: 14px;">{
+  "success": false,
+  "error": "Invalid alphabet parameter. Must be a single letter A-Z"
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

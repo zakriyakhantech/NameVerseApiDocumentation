@@ -1,0 +1,395 @@
+<div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+
+  <!-- Endpoint Header -->
+  <div class="bg-gradient-to-r from-emerald-600 to-teal-700 p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-2xl font-bold text-white">Get Names by Religion</h2>
+      <a href="/getnamesbyreligion" class="bg-white text-emerald-600 px-4 py-2 rounded-lg hover:bg-emerald-50 transition-colors font-semibold text-sm">
+        <i class="fas fa-flask mr-2"></i>Live Testing
+      </a>
+    </div>
+    <div class="flex items-center space-x-3 mb-3">
+      <span class="bg-green-500 text-white px-3 py-1 rounded-md font-bold text-sm">GET</span>
+      <code class="text-white text-lg font-mono">/api/religion/{religion}</code>
+    </div>
+    <p class="text-emerald-100">
+      Retrieve paginated names from our 65,000+ database filtered by religion (Islamic, Christian, Hindu) with advanced filters, sorting, and ISR support.
+    </p>
+  </div>
+
+  <div class="p-6">
+
+    <!-- Description -->
+    <div class="mb-6">
+      <h3 class="text-lg font-bold text-gray-900 mb-3">Description</h3>
+      <p class="text-gray-600 leading-relaxed mb-3">
+        Access our comprehensive database of over 65,000 religious names with detailed metadata. This endpoint returns 
+        paginated results with comprehensive name information including meanings, origins, cultural context, and more. 
+        Optimized for Next.js ISR with 60-second revalidation for optimal performance.
+      </p>
+      <div class="grid grid-cols-3 gap-3 mt-4">
+        <div class="bg-green-50 border border-green-200 rounded-lg p-3 text-center">
+          <div class="text-2xl font-bold text-green-600">65,000+</div>
+          <div class="text-xs text-green-700 font-semibold">Total Names</div>
+        </div>
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 text-center">
+          <div class="text-2xl font-bold text-blue-600">3</div>
+          <div class="text-xs text-blue-700 font-semibold">Religions</div>
+        </div>
+        <div class="bg-purple-50 border border-purple-200 rounded-lg p-3 text-center">
+          <div class="text-2xl font-bold text-purple-600">ISR</div>
+          <div class="text-xs text-purple-700 font-semibold">60s Cache</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Path Parameters -->
+    <div class="mb-6">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Path Parameters</h3>
+      <div class="border border-gray-200 rounded-lg p-4">
+        <div class="flex items-start justify-between mb-2">
+          <div class="flex items-center space-x-2">
+            <code class="text-emerald-600 font-semibold">religion</code>
+            <span class="text-xs bg-gray-100 px-2 py-1 rounded">string</span>
+            <span class="text-xs bg-red-100 text-red-700 px-2 py-1 rounded font-semibold">required</span>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600 mb-2">The religion category to filter names by.</p>
+        <div class="bg-gray-50 p-3 rounded text-xs flex gap-2 flex-wrap">
+          <span class="bg-emerald-100 text-emerald-700 px-3 py-1.5 rounded font-semibold">islamic</span>
+          <span class="bg-emerald-100 text-emerald-700 px-3 py-1.5 rounded font-semibold">christian</span>
+          <span class="bg-emerald-100 text-emerald-700 px-3 py-1.5 rounded font-semibold">hindu</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Query Parameters -->
+    <div class="mb-6">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Query Parameters</h3>
+      <div class="space-y-4">
+
+        <!-- Page Parameter -->
+        <div class="border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start justify-between mb-2">
+            <div class="flex items-center space-x-2">
+              <code class="text-emerald-600 font-semibold">page</code>
+              <span class="text-xs bg-gray-100 px-2 py-1 rounded">integer</span>
+              <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">optional</span>
+            </div>
+            <span class="text-xs text-gray-500">default: 1</span>
+          </div>
+          <p class="text-sm text-gray-600">Current page number for pagination.</p>
+        </div>
+
+        <!-- Limit Parameter -->
+        <div class="border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start justify-between mb-2">
+            <div class="flex items-center space-x-2">
+              <code class="text-emerald-600 font-semibold">limit</code>
+              <span class="text-xs bg-gray-100 px-2 py-1 rounded">integer</span>
+              <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">optional</span>
+            </div>
+            <span class="text-xs text-gray-500">default: 40</span>
+          </div>
+          <p class="text-sm text-gray-600">Number of names per page (min: 1, max: 100).</p>
+        </div>
+
+        <!-- Sort Parameter -->
+        <div class="border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start justify-between mb-2">
+            <div class="flex items-center space-x-2">
+              <code class="text-emerald-600 font-semibold">sort</code>
+              <span class="text-xs bg-gray-100 px-2 py-1 rounded">enum</span>
+              <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">optional</span>
+            </div>
+            <span class="text-xs text-gray-500">default: asc</span>
+          </div>
+          <p class="text-sm text-gray-600 mb-2">Sort order for results.</p>
+          <div class="bg-gray-50 p-2 rounded text-xs flex gap-2 flex-wrap">
+            <span class="bg-green-100 text-green-700 px-2 py-1 rounded font-semibold">asc</span>
+            <span class="bg-green-100 text-green-700 px-2 py-1 rounded font-semibold">desc</span>
+            <span class="bg-green-100 text-green-700 px-2 py-1 rounded font-semibold">popularity</span>
+          </div>
+        </div>
+
+        <!-- Gender Parameter -->
+        <div class="border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start justify-between mb-2">
+            <div class="flex items-center space-x-2">
+              <code class="text-emerald-600 font-semibold">gender</code>
+              <span class="text-xs bg-gray-100 px-2 py-1 rounded">enum</span>
+              <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">optional</span>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 mb-2">Filter by gender.</p>
+          <div class="bg-gray-50 p-2 rounded text-xs flex gap-2 flex-wrap">
+            <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded font-semibold">boy</span>
+            <span class="bg-pink-100 text-pink-700 px-2 py-1 rounded font-semibold">girl</span>
+          </div>
+        </div>
+
+        <!-- Letter Parameter -->
+        <div class="border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start justify-between mb-2">
+            <div class="flex items-center space-x-2">
+              <code class="text-emerald-600 font-semibold">letter</code>
+              <span class="text-xs bg-gray-100 px-2 py-1 rounded">string</span>
+              <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">optional</span>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600">Filter by starting letter (A-Z).</p>
+        </div>
+
+        <!-- Origin Parameter -->
+        <div class="border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start justify-between mb-2">
+            <div class="flex items-center space-x-2">
+              <code class="text-emerald-600 font-semibold">origin</code>
+              <span class="text-xs bg-gray-100 px-2 py-1 rounded">string</span>
+              <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">optional</span>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600">Filter by name origin (e.g., Arabic, Hebrew, Sanskrit).</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Request Examples -->
+    <div class="mb-6">
+      <h3 class="text-lg font-bold text-gray-900 mb-3">Request Examples</h3>
+      
+      <div class="space-y-3">
+        <div>
+          <p class="text-sm text-gray-600 mb-2 font-semibold">Basic request with defaults</p>
+          <div class="code-block" style="background: #1e293b; border-radius: 8px; padding: 12px; overflow-x: auto;">
+            <code style="color: #10b981; font-family: 'Courier New', monospace; font-size: 13px;">GET https://namverse-api.vercel.app/api/religion/islamic?page=1&limit=40&sort=asc</code>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-sm text-gray-600 mb-2 font-semibold">Filter by gender</p>
+          <div class="code-block" style="background: #1e293b; border-radius: 8px; padding: 12px; overflow-x: auto;">
+            <code style="color: #10b981; font-family: 'Courier New', monospace; font-size: 13px;">GET https://namverse-api.vercel.app/api/religion/christian?gender=girl&sort=popularity</code>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-sm text-gray-600 mb-2 font-semibold">Filter by letter and origin</p>
+          <div class="code-block" style="background: #1e293b; border-radius: 8px; padding: 12px; overflow-x: auto;">
+            <code style="color: #10b981; font-family: 'Courier New', monospace; font-size: 13px;">GET https://namverse-api.vercel.app/api/religion/hindu?letter=A&origin=Sanskrit&limit=20</code>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-sm text-gray-600 mb-2 font-semibold">Next.js fetch with ISR</p>
+          <div class="code-block" style="background: #1e293b; border-radius: 8px; padding: 12px; overflow-x: auto;">
+<pre style="color: #10b981; font-family: 'Courier New', monospace; font-size: 13px; margin: 0;">const response = await fetch(
+  'https://namverse-api.vercel.app/api/religion/islamic',
+  { next: { revalidate: 60 } }
+);</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Response Structure -->
+    <div class="mb-6">
+      <h3 class="text-lg font-bold text-gray-900 mb-3">Response Structure</h3>
+
+      <!-- Success Response -->
+      <div class="mb-4">
+        <div class="flex items-center space-x-2 mb-2">
+          <span class="bg-green-500 text-white px-3 py-1 rounded text-sm font-bold">200</span>
+          <span class="text-sm font-semibold text-gray-700">Success</span>
+        </div>
+        <div class="code-block" style="background: #1e293b; border-radius: 8px; padding: 16px; overflow-x: auto;">
+<pre><code style="color: #10b981; font-family: 'Courier New', monospace; font-size: 14px;">{
+  "success": true,
+  "data": [
+    {
+      "id": "name_12345",
+      "name": "Aisha",
+      "slug": "aisha",
+      "meaning": "Living, prosperous, she who lives",
+      "gender": "girl",
+      "origin": "Arabic",
+      "religion": "islamic",
+      "pronunciation": "ah-EE-shah",
+      "popularity": 95,
+      "culturalContext": "Name of Prophet Muhammad's wife",
+      "alternativeSpellings": ["Ayesha", "Aysha", "A'isha"],
+      "relatedNames": ["Ayesha", "Aishwarya"],
+      "numerology": 7,
+      "rashi": "Mesh",
+      "nakshatra": "Ashwini"
+    }
+  ],
+  "pagination": {
+    "currentPage": 1,
+    "totalPages": 250,
+    "totalCount": 10000,
+    "limit": 40,
+    "hasNextPage": true,
+    "hasPrevPage": false
+  }
+}</code></pre>
+        </div>
+      </div>
+
+      <!-- Error Responses -->
+      <div class="space-y-3">
+        <div>
+          <div class="flex items-center space-x-2 mb-2">
+            <span class="bg-red-500 text-white px-3 py-1 rounded text-sm font-bold">400</span>
+            <span class="text-sm font-semibold text-gray-700">Bad Request</span>
+          </div>
+          <div class="code-block" style="background: #1e293b; border-radius: 8px; padding: 12px; overflow-x: auto;">
+<pre><code style="color: #10b981; font-family: 'Courier New', monospace; font-size: 13px;">{
+  "success": false,
+  "error": "Invalid religion parameter",
+  "message": "Religion must be one of: islamic, christian, hindu"
+}</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters Endpoint -->
+    <div class="mb-6">
+      <h3 class="text-lg font-bold text-gray-900 mb-3">Get Available Filters</h3>
+      <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-5">
+        <div class="flex items-center space-x-3 mb-3">
+          <span class="bg-green-500 text-white px-3 py-1 rounded-md font-bold text-xs">GET</span>
+          <code class="text-sm font-semibold text-gray-800">https://namverse-api.vercel.app/api/religion/{religion}/filters</code>
+        </div>
+        <p class="text-sm text-gray-700 mb-3">
+          Get all available filter options for a specific religion including genders, origins, letters, and themes.
+        </p>
+        
+        <div class="code-block" style="background: #1e293b; border-radius: 8px; padding: 12px; overflow-x: auto;">
+<pre><code style="color: #10b981; font-family: 'Courier New', monospace; font-size: 13px;">{
+  "success": true,
+  "filters": {
+    "genders": ["boy", "girl"],
+    "origins": ["Arabic", "Persian", "Urdu", "Turkish"],
+    "letters": ["A", "B", "C", ..., "Z"],
+    "themes": ["Strength", "Beauty", "Wisdom", "Peace"],
+    "popularity": { "min": 1, "max": 100 }
+  }
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Integration Guide -->
+    <div class="mb-6">
+      <h3 class="text-lg font-bold text-gray-900 mb-3">Next.js Integration</h3>
+      
+      <div class="bg-gray-50 border border-gray-200 rounded-lg p-5">
+        <div class="code-block" style="background: #1e293b; border-radius: 8px; padding: 16px; overflow-x: auto; margin-bottom: 16px;">
+<pre><code style="color: #10b981; font-family: 'Courier New', monospace; font-size: 13px;">// app/religion/[religion]/page.js
+
+export const revalidate = 60; // ISR: Revalidate every 60 seconds
+
+const API_BASE = 'https://namverse-api.vercel.app/api/religion';
+
+export async function generateStaticParams() {
+  return ['islamic', 'christian', 'hindu'].map((religion) => ({ 
+    religion 
+  }));
+}
+
+export default async function ReligionPage({ params }) {
+  const { religion } = params;
+  
+  const response = await fetch(
+    `${API_BASE}/${religion}?page=1&limit=40`,
+    { next: { revalidate: 60 } }
+  );
+  
+  const data = await response.json();
+  
+  return &lt;ReligionBrowser initialData={data} /&gt;;
+}</code></pre>
+        </div>
+        
+        <div class="text-xs text-gray-600 space-y-2">
+          <p><strong>✓ 65,000+ Names:</strong> Access our comprehensive database</p>
+          <p><strong>✓ ISR Benefits:</strong> Static generation with 60s revalidation</p>
+          <p><strong>✓ Performance:</strong> Instant first load with cached HTML</p>
+          <p><strong>✓ SEO Optimized:</strong> Full content for search engines</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Religion Overview -->
+    <div>
+      <h3 class="text-lg font-bold text-gray-900 mb-3">Religion Database</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        
+        <div class="bg-gradient-to-br from-green-50 to-emerald-100 border border-green-200 rounded-lg p-5">
+          <div class="flex items-center space-x-3 mb-3">
+            <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center">
+              <i class="fas fa-moon text-white text-xl"></i>
+            </div>
+            <h4 class="font-bold text-green-900 text-lg">Islamic</h4>
+          </div>
+          <p class="text-sm text-green-700 mb-3">Arabic, Persian, Urdu, and Turkish names with Islamic significance</p>
+          <div class="space-y-2 text-xs">
+            <div class="flex items-center justify-between">
+              <span class="text-green-800 font-semibold">Total Names:</span>
+              <span class="bg-green-200 text-green-900 px-2 py-1 rounded font-bold">35,000+</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-green-800 font-semibold">Origins:</span>
+              <span class="text-green-700">4 types</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 rounded-lg p-5">
+          <div class="flex items-center space-x-3 mb-3">
+            <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center">
+              <i class="fas fa-cross text-white text-xl"></i>
+            </div>
+            <h4 class="font-bold text-purple-900 text-lg">Christian</h4>
+          </div>
+          <p class="text-sm text-purple-700 mb-3">Biblical and traditional Christian names from Hebrew and Latin origins</p>
+          <div class="space-y-2 text-xs">
+            <div class="flex items-center justify-between">
+              <span class="text-purple-800 font-semibold">Total Names:</span>
+              <span class="bg-purple-200 text-purple-900 px-2 py-1 rounded font-bold">15,000+</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-purple-800 font-semibold">Origins:</span>
+              <span class="text-purple-700">3 types</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-orange-50 to-orange-100 border border-orange-200 rounded-lg p-5">
+          <div class="flex items-center space-x-3 mb-3">
+            <div class="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center">
+              <i class="fas fa-om text-white text-xl"></i>
+            </div>
+            <h4 class="font-bold text-orange-900 text-lg">Hindu</h4>
+          </div>
+          <p class="text-sm text-orange-700 mb-3">Sanskrit names with Hindu mythology and Vedic significance</p>
+          <div class="space-y-2 text-xs">
+            <div class="flex items-center justify-between">
+              <span class="text-orange-800 font-semibold">Total Names:</span>
+              <span class="bg-orange-200 text-orange-900 px-2 py-1 rounded font-bold">15,000+</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-orange-800 font-semibold">Origins:</span>
+              <span class="text-orange-700">2 types</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

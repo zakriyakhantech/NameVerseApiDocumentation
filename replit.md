@@ -1,45 +1,52 @@
 # NameVerse API Documentation
 
 ## Overview
-This is a Node.js/Express web application that serves as the documentation and testing interface for the NameVerse API. The API provides access to a comprehensive database of 70,000+ names across Islamic, Hindu, and Christian traditions with detailed information including meanings, origins, lucky days, personality traits, and more.
+This is a static HTML website that serves as the documentation and testing interface for the NameVerse API. The API provides access to a comprehensive database of 70,000+ names across Islamic, Hindu, and Christian traditions with detailed information including meanings, origins, lucky days, personality traits, and more.
 
 ## Project Structure
 ```
-NameMeaningApiDocumentation/
-├── components/          # YAML component definitions
-├── docs/               # Documentation HTML pages
-├── paths/              # API path definitions
-├── src/                # Source HTML files for endpoints
-├── index.html          # Main landing page
-├── server.js           # Express server
-├── package.json        # Node.js dependencies
-└── openapi.yaml        # OpenAPI specification
+public/                    # Static site root (deployed)
+├── index.html            # Main landing page with client-side router
+├── 404.html              # Handles clean URL routing
+├── server.js             # Development static server
+├── package.json          # Development server config
+├── docs/                 # Documentation HTML pages
+│   ├── Docs.html
+│   ├── Blog.html
+│   └── ...
+└── src/                  # Endpoint testing pages
+    ├── getnames.html
+    ├── getnamesbysearch.html
+    └── ...
+
+NameMeaningApiDocumentation/   # Original Node.js source (reference)
 ```
 
 ## Tech Stack
-- **Backend**: Node.js with Express.js
-- **Frontend**: HTML, CSS (TailwindCSS CDN), Vanilla JavaScript
-- **Port**: 5000 (configured for Replit environment)
-- **Host**: 0.0.0.0 (allows proxy access)
-
-## Setup
-The project has been configured to run in the Replit environment:
-1. Node.js 20 is installed
-2. Dependencies installed via npm
-3. Server configured to run on 0.0.0.0:5000
-4. Workflow created to start the server automatically
+- **Frontend**: Static HTML, CSS (TailwindCSS CDN), Vanilla JavaScript
+- **Hosting**: Replit Static Deployment (FREE)
+- **Routing**: Client-side JavaScript routing for clean URLs
+- **API**: Calls external API at namverse-api.vercel.app
 
 ## Deployment
-Configured for autoscale deployment with the command: `npm start`
+- **Type**: Static deployment (FREE hosting)
+- **Public Directory**: `public`
+- **URLs**: Clean URLs without hash (e.g., `/docs`, `/names/islamic/muhammad`)
+
+## How Clean URLs Work
+1. The 404.html catches unknown paths and stores them in sessionStorage
+2. It redirects to index.html
+3. index.html reads the stored path and loads the appropriate page
+4. Client-side navigation uses the History API for seamless routing
 
 ## Recent Changes (December 01, 2025)
-- Fixed syntax error in server.js (missing comma on line 25)
-- Updated server to bind to 0.0.0.0:5000 for Replit environment
-- Created workflow for automatic server startup
-- Added .gitignore for Node.js projects
-- Configured deployment settings for production
+- Converted from Node.js/Express to static site for FREE hosting
+- Implemented client-side routing for clean URLs
+- Created 404.html for SPA-style routing
+- All routes work: `/`, `/docs`, `/blog`, `/names/:religion/:slug`, etc.
+- External API calls to 65K+ names database work correctly
 
-## Available Endpoints
+## Available Routes
 - `/` - Main documentation landing page
 - `/docs` - API documentation
 - `/blog` - Blog page
@@ -48,8 +55,7 @@ Configured for autoscale deployment with the command: `npm start`
 - `/getnamesbyletter` - Filter names by starting letter
 - `/getnamesbyreligion` - Filter names by religion
 - `/getfilteroptions` - Get available filter options
-- `/names/:religion/:name` - Get specific name by religion and slug
-- `/api/names` - API endpoint for retrieving filtered names
+- `/names/:religion/:slug` - View specific name (e.g., `/names/islamic/muhammad`)
 - `/health` - Health check endpoint
 
 ## API Features

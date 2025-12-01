@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, "src")));
 
 // Main documentation page (loads all endpoints dynamically)
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "docs", "Homepage.html"));
+  res.sendFile(path.join(__dirname "index.html"));
 });
 app.get("/docs", (req, res) => {
   res.sendFile(path.join(__dirname, "docs", "Docs.html"));

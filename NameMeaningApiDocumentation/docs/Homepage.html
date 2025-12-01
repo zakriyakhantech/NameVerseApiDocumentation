@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NameVerse API - 70K+ Names Database</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    
+    .gradient-text {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero-gradient {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+    }
+    
+    .code-block {
+      font-family: 'Courier New', monospace;
+      background: #1e1e1e;
+      color: #d4d4d4;
+    }
+    
+    .json-key {
+      color: #9cdcfe;
+    }
+    
+    .json-string {
+      color: #ce9178;
+    }
+    
+    .json-number {
+      color: #b5cea8;
+    }
+    
+    .float-animation {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 1s ease-in;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.25);
+    }
+    
+    .feature-card {
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      backdrop-filter: blur(10px);
+    }
+    
+    .feature-card:hover {
+      border-color: #8b5cf6;
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px -12px rgba(139, 92, 246, 0.3);
+    }
+    
+    .icon-glow {
+      box-shadow: 0 8px 16px rgba(139, 92, 246, 0.3);
+    }
+    
+    .feature-card:hover .icon-glow {
+      box-shadow: 0 12px 24px rgba(139, 92, 246, 0.5);
+      transform: scale(1.1) rotate(5deg);
+    }
+    
+    .icon-glow {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* Mobile-first spacing */
+    @media (max-width: 768px) {
+      .hero-gradient {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+      }
+      
+      h1 {
+        font-size: 2rem !important;
+        line-height: 2.5rem !important;
+      }
+      
+      .stat-card {
+        padding: 1.25rem;
+      }
+      
+      .feature-card {
+        padding: 1.25rem;
+      }
+    }
+    
+    /* Soft colors for eyes */
+    .soft-bg {
+      background: linear-gradient(to bottom, #fafafa 0%, #f5f5f5 100%);
+    }
+  </style>
+</head>
+<body class="soft-bg min-h-screen">
+  
+  <!-- Header -->
+  <header class="bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-200 sticky top-0 z-50">
+    <div class="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-2 sm:space-x-3">
+          <div class="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
+            <i class="fas fa-signature text-white text-base sm:text-lg"></i>
+          </div>
+          <div>
+            <h1 class="text-base sm:text-xl font-bold gradient-text">NameVerse API</h1>
+            <p class="text-xs text-gray-600 hidden sm:block">Names Database & Meanings</p>
+          </div>
+        </div>
+        <div class="flex items-center space-x-2 sm:space-x-3">
+          <a href="https://nameverse.vercel.app" target="_blank" class="px-3 py-2 sm:px-4 bg-gray-50 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors text-xs sm:text-sm font-semibold">
+            <i class="fas fa-globe mr-1 sm:mr-2"></i><span class="hidden sm:inline">Visit </span>Website
+          </a>
+          <a href="/docs" class="px-3 py-2 sm:px-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg hover:shadow-lg transition-all text-xs sm:text-sm font-semibold">
+            <i class="fas fa-book mr-1 sm:mr-2"></i>Docs
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-gradient text-white py-16 md:py-24">
+    <div class="container mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-4xl mx-auto fade-in">
+        <div class="inline-flex items-center bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6 space-x-2">
+          <i class="fas fa-bolt text-yellow-300 text-sm"></i>
+          <span class="text-sm font-semibold">Free & Open API</span>
+        </div>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-black mb-6 leading-tight">
+          70,000+ Names Across<br class="hidden sm:block"/>Origins & Religions
+        </h1>
+        <p class="text-lg sm:text-xl text-purple-100 mb-8 max-w-2xl mx-auto leading-relaxed">
+          Access a comprehensive database of names from Islamic, Hindu, and Christian traditions with deep meanings, lucky days, personality traits, and more.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center px-4">
+          <a href="/docs" class="w-full sm:w-auto px-6 sm:px-8 py-4 bg-white text-purple-600 rounded-xl font-bold text-base sm:text-lg hover:shadow-2xl transform hover:scale-105 transition-all flex items-center justify-center">
+            <i class="fas fa-rocket mr-2"></i>Get Started
+          </a>
+          <a href="https://nameverse.vercel.app" target="_blank" class="w-full sm:w-auto px-6 sm:px-8 py-4 bg-purple-700/80 backdrop-blur text-white rounded-xl font-bold text-base sm:text-lg hover:bg-purple-800 transition-all flex items-center justify-center">
+            <i class="fas fa-globe mr-2"></i>Visit Website
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="py-12 md:py-16 -mt-10">
+    <div class="container mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+        <div class="stat-card bg-white rounded-2xl shadow-lg p-4 sm:p-6 text-center border-t-4 border-indigo-600">
+          <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-lg">
+            <i class="fas fa-layer-group text-white text-lg sm:text-2xl"></i>
+          </div>
+          <div class="text-2xl sm:text-4xl font-black text-indigo-600 mb-2">70K+</div>
+          <div class="text-xs sm:text-sm text-gray-600 font-semibold">Total Names</div>
+        </div>
+        <div class="stat-card bg-white rounded-2xl shadow-lg p-4 sm:p-6 text-center border-t-4 border-violet-600">
+          <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-violet-500 to-violet-600 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-lg">
+            <i class="fas fa-dharmachakra text-white text-lg sm:text-2xl"></i>
+          </div>
+          <div class="text-2xl sm:text-4xl font-black text-violet-600 mb-2">3</div>
+          <div class="text-xs sm:text-sm text-gray-600 font-semibold">Religions</div>
+        </div>
+        <div class="stat-card bg-white rounded-2xl shadow-lg p-4 sm:p-6 text-center border-t-4 border-emerald-600">
+          <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-lg">
+            <i class="fas fa-map-marked-alt text-white text-lg sm:text-2xl"></i>
+          </div>
+          <div class="text-2xl sm:text-4xl font-black text-emerald-600 mb-2">50+</div>
+          <div class="text-xs sm:text-sm text-gray-600 font-semibold">Origins</div>
+        </div>
+        <div class="stat-card bg-white rounded-2xl shadow-lg p-4 sm:p-6 text-center border-t-4 border-amber-600">
+          <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-amber-500 to-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-lg">
+            <i class="fas fa-shield-check text-white text-lg sm:text-2xl"></i>
+          </div>
+          <div class="text-2xl sm:text-4xl font-black text-amber-600 mb-2">100%</div>
+          <div class="text-xs sm:text-sm text-gray-600 font-semibold">Free & Open</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- API Preview Section -->
+  <section class="py-12 md:py-16">
+    <div class="container mx-auto px-4 sm:px-6">
+      <div class="text-center mb-8 md:mb-12">
+        <h2 class="text-3xl sm:text-4xl font-black text-gray-900 mb-3 sm:mb-4">Simple & Powerful API</h2>
+        <p class="text-base sm:text-xl text-gray-600">Get detailed name information with a single request</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 max-w-6xl mx-auto">
+        <!-- Request Example -->
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">
+          <div class="bg-gradient-to-r from-emerald-500 to-emerald-600 px-4 sm:px-6 py-3 sm:py-4">
+            <div class="flex items-center space-x-2 sm:space-x-3">
+              <span class="bg-white text-emerald-600 px-2 sm:px-3 py-1 rounded-md font-bold text-xs">GET</span>
+              <span class="text-white font-mono text-xs sm:text-sm truncate">/api/names/islamic/muhammad</span>
+            </div>
+          </div>
+          <div class="p-4 sm:p-6">
+            <h3 class="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">Example Request</h3>
+            <pre class="code-block rounded-xl p-3 sm:p-4 text-xs overflow-x-auto">GET https://namverse-api.vercel.app/api/names/islamic/muhammad</pre>
+          </div>
+        </div>
+
+        <!-- Response Example -->
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">
+          <div class="bg-gradient-to-r from-blue-500 to-blue-600 px-4 sm:px-6 py-3 sm:py-4">
+            <div class="flex items-center space-x-2 sm:space-x-3">
+              <span class="bg-white text-blue-600 px-2 sm:px-3 py-1 rounded-md font-bold text-xs">200</span>
+              <span class="text-white font-semibold text-xs sm:text-sm">Success Response</span>
+            </div>
+          </div>
+          <div class="p-4 sm:p-6">
+            <h3 class="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">Example Response</h3>
+            <pre class="code-block rounded-xl p-3 sm:p-4 text-xs overflow-x-auto leading-relaxed">{
+  <span class="json-key">"id"</span>: <span class="json-number">1</span>,
+  <span class="json-key">"name"</span>: <span class="json-string">"Muhammad"</span>,
+  <span class="json-key">"slug"</span>: <span class="json-string">"muhammad"</span>,
+  <span class="json-key">"religion"</span>: <span class="json-string">"Islamic"</span>,
+  <span class="json-key">"meaning"</span>: <span class="json-string">"Praiseworthy, Commendable"</span>,
+  <span class="json-key">"origin"</span>: <span class="json-string">"Arabic"</span>,
+  <span class="json-key">"luckyDay"</span>: <span class="json-string">"Thursday"</span>,
+  <span class="json-key">"luckyNumber"</span>: <span class="json-number">3</span>,
+  <span class="json-key">"traits"</span>: [<span class="json-string">"Leadership"</span>, <span class="json-string">"Wisdom"</span>]
+}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-12 md:py-16 bg-white/50">
+    <div class="container mx-auto px-4 sm:px-6">
+      <div class="text-center mb-8 md:mb-12">
+        <h2 class="text-3xl sm:text-4xl font-black text-gray-900 mb-3 sm:mb-4">Rich Data Features</h2>
+        <p class="text-base sm:text-xl text-gray-600">Everything you need to know about a name</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
+        <div class="feature-card bg-gradient-to-br from-purple-50/80 to-purple-100/80 rounded-2xl p-5 sm:p-6">
+          <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-4 icon-glow shadow-lg">
+            <i class="fas fa-book-open text-white text-xl sm:text-2xl"></i>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2">Deep Meanings</h3>
+          <p class="text-sm sm:text-base text-gray-600">Comprehensive meanings and interpretations for each name across different cultures.</p>
+        </div>
+
+        <div class="feature-card bg-gradient-to-br from-blue-50/80 to-blue-100/80 rounded-2xl p-5 sm:p-6">
+          <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-4 icon-glow shadow-lg">
+            <i class="fas fa-calendar-star text-white text-xl sm:text-2xl"></i>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2">Lucky Days</h3>
+          <p class="text-sm sm:text-base text-gray-600">Astrological lucky days and numbers associated with each name.</p>
+        </div>
+
+        <div class="feature-card bg-gradient-to-br from-emerald-50/80 to-emerald-100/80 rounded-2xl p-5 sm:p-6">
+          <div class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-4 icon-glow shadow-lg">
+            <i class="fas fa-user-circle text-white text-xl sm:text-2xl"></i>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2">Personality Traits</h3>
+          <p class="text-sm sm:text-base text-gray-600">Detailed personality characteristics and traits linked to names.</p>
+        </div>
+
+        <div class="feature-card bg-gradient-to-br from-amber-50/80 to-amber-100/80 rounded-2xl p-5 sm:p-6">
+          <div class="w-14 h-14 bg-gradient-to-br from-amber-500 to-amber-600 rounded-2xl flex items-center justify-center mb-4 icon-glow shadow-lg">
+            <i class="fas fa-globe-americas text-white text-xl sm:text-2xl"></i>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2">Multiple Origins</h3>
+          <p class="text-sm sm:text-base text-gray-600">Names from Arabic, Sanskrit, Hebrew, and 50+ other origins.</p>
+        </div>
+
+        <div class="feature-card bg-gradient-to-br from-pink-50/80 to-pink-100/80 rounded-2xl p-5 sm:p-6">
+          <div class="w-14 h-14 bg-gradient-to-br from-pink-500 to-pink-600 rounded-2xl flex items-center justify-center mb-4 icon-glow shadow-lg">
+            <i class="fas fa-hands-praying text-white text-xl sm:text-2xl"></i>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2">Religious Context</h3>
+          <p class="text-sm sm:text-base text-gray-600">Names categorized by Islamic, Hindu, and Christian traditions.</p>
+        </div>
+
+        <div class="feature-card bg-gradient-to-br from-indigo-50/80 to-indigo-100/80 rounded-2xl p-5 sm:p-6">
+          <div class="w-14 h-14 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-4 icon-glow shadow-lg">
+            <i class="fas fa-rocket text-white text-xl sm:text-2xl"></i>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2">Fast & Reliable</h3>
+          <p class="text-sm sm:text-base text-gray-600">Lightning-fast responses with 99.9% uptime and CDN delivery.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Religions Section -->
+  <section class="py-16">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-black text-gray-900 mb-4">Supported Religions</h2>
+        <p class="text-xl text-gray-600">Access names from major world religions</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 text-center float-animation transform hover:scale-105 transition-all duration-300">
+          <div class="w-24 h-24 bg-gradient-to-br from-green-400 via-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl">
+            <i class="fas fa-mosque text-white text-4xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-3">Islamic</h3>
+          <p class="text-gray-600 mb-4">Arabic, Persian, Turkish, and Urdu names with Islamic heritage</p>
+          <div class="text-4xl font-black bg-gradient-to-r from-green-500 to-green-600 bg-clip-text text-transparent">35,000+</div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-2xl p-8 text-center float-animation transform hover:scale-105 transition-all duration-300" style="animation-delay: 0.2s;">
+          <div class="w-24 h-24 bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl">
+            <i class="fas fa-om text-white text-4xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-3">Hindu</h3>
+          <p class="text-gray-600 mb-4">Sanskrit and Indian names from Hindu traditions and mythology</p>
+          <div class="text-4xl font-black bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">25,000+</div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-2xl p-8 text-center float-animation transform hover:scale-105 transition-all duration-300" style="animation-delay: 0.4s;">
+          <div class="w-24 h-24 bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl">
+            <i class="fas fa-cross text-white text-4xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-3">Christian</h3>
+          <p class="text-gray-600 mb-4">Biblical and Christian names from Hebrew and Greek origins</p>
+          <div class="text-4xl font-black bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent">10,000+</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-gradient-to-r from-purple-600 to-indigo-600">
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="text-4xl md:text-5xl font-black text-white mb-6">Ready to Get Started?</h2>
+      <p class="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
+        Start building amazing name-based applications with our free API today. No authentication required!
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="/docs" class="px-8 py-4 bg-white text-purple-600 rounded-lg font-bold text-lg hover:shadow-2xl transform hover:scale-105 transition-all">
+          <i class="fas fa-book-open mr-2"></i>View Documentation
+        </a>
+        <a href="https://nameverse.vercel.app" target="_blank" class="px-8 py-4 bg-purple-700 text-white rounded-lg font-bold text-lg hover:bg-purple-800 transition-all border-2 border-white">
+          <i class="fas fa-desktop mr-2"></i>Explore Website
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-400 py-12">
+    <div class="container mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div>
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-10 h-10 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-xl flex items-center justify-center">
+              <i class="fas fa-user-tag text-white"></i>
+            </div>
+            <span class="text-white font-bold text-lg">NameVerse API</span>
+          </div>
+          <p class="text-sm">Comprehensive names database with 70,000+ names across religions and origins.</p>
+        </div>
+        
+        <div>
+          <h4 class="text-white font-bold mb-4">API</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/docs" class="hover:text-white transition-colors">Documentation</a></li>
+            <li><a href="/health" class="hover:text-white transition-colors">API Health</a></li>
+            <li><a href="/docs" class="hover:text-white transition-colors">Get Started</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-white font-bold mb-4">Resources</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="https://nameverse.vercel.app" target="_blank" class="hover:text-white transition-colors">Website</a></li>
+            <li><a href="https://nameverse.vercel.app" target="_blank" class="hover:text-white transition-colors">Name Search</a></li>
+            <li><a href="/blog"  class="hover:text-white transition-colors">Blog</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-white font-bold mb-4 text-lg">Connect</h4>
+          <div class="space-y-3">
+            <a href="https://www.linkedin.com/in/yourprofile" target="_blank" class="flex items-center text-gray-300 hover:text-white transition-all duration-300 group">
+              <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500 transition-all shadow-lg">
+                <i class="fab fa-linkedin-in text-white text-lg"></i>
+              </div>
+              <span class="font-medium">LinkedIn</span>
+            </a>
+            <a href="https://wa.me/923497174815" target="_blank" class="flex items-center text-gray-300 hover:text-white transition-all duration-300 group">
+              <div class="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center mr-3 group-hover:bg-green-500 transition-all shadow-lg">
+                <i class="fab fa-whatsapp text-white text-lg"></i>
+              </div>
+              <span class="font-medium">WhatsApp</span>
+            </a>
+            <a href="mailto:zakriyakhan8760@gmail.com" class="flex items-center text-gray-300 hover:text-white transition-all duration-300 group">
+              <div class="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center mr-3 group-hover:bg-red-500 transition-all shadow-lg">
+                <i class="fas fa-envelope text-white text-lg"></i>
+              </div>
+              <span class="font-medium">Email</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 pt-8 text-center text-sm">
+        <p>&copy; 2024 NameVerse API. All rights reserved. Built with ❤️ for developers.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

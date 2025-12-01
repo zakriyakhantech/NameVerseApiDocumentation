@@ -3,8 +3,6 @@ import { readFileSync, existsSync, statSync } from 'fs';
 import { join, extname } from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import https from 'https';
-import http from 'http';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -47,7 +45,7 @@ function serveFile(res, filePath) {
       'Content-Type': contentType,
       'Cache-Control': 'no-cache',
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, HEAD',
       'Access-Control-Allow-Headers': 'Content-Type'
     });
     res.end(content);
@@ -57,40 +55,13 @@ function serveFile(res, filePath) {
   }
 }
 
-function proxyRequest(path, res) {
-  const externalUrl = 'https://namverse-api.vercel.app' + path;
-  
-  https.get(externalUrl, (apiRes) => {
-    let data = '';
-    apiRes.on('data', chunk => data += chunk);
-    apiRes.on('end', () => {
-      res.writeHead(apiRes.statusCode, {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'no-cache',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type'
-      });
-      res.end(data);
-    });
-  }).on('error', (err) => {
-    res.writeHead(500, { 
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    });
-    res.end(JSON.stringify({ error: 'Failed to fetch', details: err.message }));
-  });
-}
-
 const server = createServer((req, res) => {
   const urlPath = req.url.split('?')[0];
-  const fullUrl = req.url;
   
-  // Handle CORS preflight
   if (req.method === 'OPTIONS') {
     res.writeHead(200, {
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, HEAD',
       'Access-Control-Allow-Headers': 'Content-Type'
     });
     res.end();
@@ -106,19 +77,8 @@ const server = createServer((req, res) => {
       status: "healthy",
       service: "NameVerse API",
       version: "1.0.0",
-      timestamp: new Date().toISOString(),
-      endpoints: {
-        documentation: "/",
-        docs: "/docs",
-        blog: "/blog"
-      }
+      timestamp: new Date().toISOString()
     }, null, 2));
-    return;
-  }
-
-  // Proxy API requests
-  if (urlPath.startsWith('/api/')) {
-    proxyRequest(fullUrl, res);
     return;
   }
 

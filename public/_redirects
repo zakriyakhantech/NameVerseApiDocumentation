@@ -1,3 +1,4 @@
+/api/*  https://namverse-api.vercel.app/api/:splat  200
 /docs              /docs/Docs.html       200
 /blog              /docs/Blog.html       200
 /getnames          /src/getnames.html    200

@@ -33,6 +33,10 @@ waitForPort = 5000
 localPort = 5000
 externalPort = 80
 
+[[ports]]
+localPort = 38951
+externalPort = 3000
+
 [deployment]
 deploymentTarget = "static"
 run = ["bash", "-c", "cd NameMeaningApiDocumentation && npm start"]

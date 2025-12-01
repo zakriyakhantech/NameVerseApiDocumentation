@@ -1,1 +1,9 @@
-/*    /index.html   200
+/docs              /docs/Docs.html       200
+/blog              /docs/Blog.html       200
+/getnames          /src/getnames.html    200
+/getnamesbysearch  /src/getnamesbysearch.html  200
+/getnamesbyletter  /src/getnamesbyletter.html  200
+/getnamesbyreligion /src/getnamesbyreligion.html  200
+/getfilteroptions  /src/getfilters.html  200
+/names/:religion/:slug  /src/getnamesbyslug.html  200
+/*                 /index.html           200

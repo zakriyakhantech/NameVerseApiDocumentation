@@ -440,51 +440,5 @@
     </div>
   </footer>
 
-  <script>
-    (function() {
-      const routes = {
-        '/': null,
-        '/docs': '/docs/Docs.html',
-        '/blog': '/docs/Blog.html',
-        '/getnames': '/src/getnames.html',
-        '/getnamesbysearch': '/src/getnamesbysearch.html',
-        '/getnamesbyletter': '/src/getnamesbyletter.html',
-        '/getnamesbyreligion': '/src/getnamesbyreligion.html',
-        '/getfilteroptions': '/src/getfilters.html'
-      };
-
-      function loadPage(url) {
-        fetch(url)
-          .then(response => response.text())
-          .then(html => {
-            document.open();
-            document.write(html);
-            document.close();
-          })
-          .catch(err => console.error('Error loading page:', err));
-      }
-
-      function handleRoute() {
-        const path = window.location.pathname;
-        
-        if (path === '/' || path === '') {
-          return;
-        }
-
-        if (routes[path]) {
-          loadPage(routes[path]);
-          return;
-        }
-
-        const nameMatch = path.match(/^\/names\/([^\/]+)\/([^\/]+)\/?$/);
-        if (nameMatch) {
-          loadPage('/src/getnamesbyslug.html');
-          return;
-        }
-      }
-
-      handleRoute();
-    })();
-  </script>
 </body>
 </html>

@@ -216,7 +216,7 @@
               <label class="block text-xs font-semibold text-gray-700 mb-2">Generated URL</label>
               <div class="flex items-center space-x-2">
                 <div class="flex-1 bg-gray-900 text-green-400 p-3 rounded-lg font-mono text-xs break-all" id="generatedUrl">
-                  https://namverse-api.vercel.app/api/names/islamic/zakriya
+                  /api/names/islamic/zakriya
                 </div>
                 <button id="copyUrlBtn" class="px-3 py-2 bg-gray-700 hover:bg-gray-800 text-white rounded-lg text-xs font-semibold transition-colors">
                   <i class="fas fa-copy"></i>
@@ -259,7 +259,7 @@
           <div class="mb-6">
             <label class="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Request URL</label>
             <div class="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm break-all" id="apiUrl">
-              https://namverse-api.vercel.app/api/names/zakriya
+              /api/names/zakriya
             </div>
           </div>
 
@@ -393,7 +393,7 @@
     const toggleParameters = document.getElementById('toggleParameters');
     const parametersContent = document.getElementById('parametersContent');
 
-    const BASE_URL = 'https://namverse-api.vercel.app/api/names';
+    const BASE_URL = '/api/names';
 
     // Get religion and slug from current URL path
     function getParamsFromUrl() {

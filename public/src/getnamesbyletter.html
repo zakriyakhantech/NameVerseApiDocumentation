@@ -205,7 +205,7 @@
           <div class="mb-6">
             <label class="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Request URL</label>
             <div class="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-xs break-all leading-relaxed" id="apiUrl">
-              https://namverse-api.vercel.app/api/name/letter/r?religion=christian&gender=girl&theme=Beauty&sort=popularity&page=1&perPage=50
+              /api/name/letter/r?religion=christian&gender=girl&theme=Beauty&sort=popularity&page=1&perPage=50
             </div>
           </div>
 
@@ -402,7 +402,7 @@
     const copyBtn = document.getElementById('copyBtn');
     const presetBtns = document.querySelectorAll('.preset-btn');
 
-    const BASE_URL = 'https://namverse-api.vercel.app/api/name/letter';
+    const BASE_URL = '/api/name/letter';
 
     function updateUrlDisplay() {
       const letter = letterInput.value.trim().toLowerCase();

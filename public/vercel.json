@@ -1,40 +1,49 @@
 {
-  "rewrites": [
+  "routes": [
     {
-      "source": "/api/:path*",
-      "destination": "https://namverse-api.vercel.app/api/:path*"
+      "src": "/api/(.*)",
+      "dest": "https://namverse-api.vercel.app/api/$1"
     },
     {
-      "source": "/docs",
-      "destination": "/docs/Docs.html"
+      "src": "/docs/?$",
+      "dest": "/docs/Docs.html"
     },
     {
-      "source": "/blog",
-      "destination": "/docs/Blog.html"
+      "src": "/blog/?$",
+      "dest": "/docs/Blog.html"
     },
     {
-      "source": "/getnames",
-      "destination": "/src/getnames.html"
+      "src": "/getnames/?$",
+      "dest": "/src/getnames.html"
     },
     {
-      "source": "/getnamesbysearch",
-      "destination": "/src/getnamesbysearch.html"
+      "src": "/getnamesbysearch/?$",
+      "dest": "/src/getnamesbysearch.html"
     },
     {
-      "source": "/getnamesbyletter",
-      "destination": "/src/getnamesbyletter.html"
+      "src": "/getnamesbyletter/?$",
+      "dest": "/src/getnamesbyletter.html"
     },
     {
-      "source": "/getnamesbyreligion",
-      "destination": "/src/getnamesbyreligion.html"
+      "src": "/getnamesbyreligion/?$",
+      "dest": "/src/getnamesbyreligion.html"
     },
     {
-      "source": "/getfilteroptions",
-      "destination": "/src/getfilters.html"
+      "src": "/getfilteroptions/?$",
+      "dest": "/src/getfilters.html"
     },
     {
-      "source": "/names/:religion/:slug",
-      "destination": "/src/getnamesbyslug.html"
+      "src": "/names/([^/]+)/([^/]+)/?$",
+      "dest": "/src/getnamesbyslug.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    },
+    {
+      "src": "/.*",
+      "status": 404,
+      "dest": "/404.html"
     }
   ],
   "headers": [

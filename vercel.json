@@ -1,0 +1,7 @@
+{
+  "buildCommand": "echo 'No build needed'",
+  "devCommand": "cd public && npm start",
+  "env": {
+    "NODE_ENV": "production"
+  }
+}

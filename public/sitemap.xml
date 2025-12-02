@@ -67,46 +67,137 @@
     <priority>0.5</priority>
   </url>
 
-  <!-- Popular Names - Islamic -->
+  <!-- Islamic Names -->
+  <url>
+    <loc>https://nameverseapidocumentation.netlify.app/names/islamic/zakriya</loc>
+    <lastmod>2025-12-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <url>
     <loc>https://nameverseapidocumentation.netlify.app/names/islamic/muhammad</loc>
     <lastmod>2025-12-02</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://nameverseapidocumentation.netlify.app/names/islamic/fatima</loc>
     <lastmod>2025-12-02</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://nameverseapidocumentation.netlify.app/names/islamic/ali</loc>
+    <lastmod>2025-12-02</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
-  <!-- Popular Names - Christian -->
+  <url>
+    <loc>https://nameverseapidocumentation.netlify.app/names/islamic/aisha</loc>
+    <lastmod>2025-12-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://nameverseapidocumentation.netlify.app/names/islamic/hassan</loc>
+    <lastmod>2025-12-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://nameverseapidocumentation.netlify.app/names/islamic/zainab</loc>
+    <lastmod>2025-12-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Christian Names -->
   <url>
     <loc>https://nameverseapidocumentation.netlify.app/names/christian/john</loc>
     <lastmod>2025-12-02</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://nameverseapidocumentation.netlify.app/names/christian/mary</loc>
     <lastmod>2025-12-02</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
 
-  <!-- Popular Names - Hindu -->
   <url>
-    <loc>https://nameverseapidocumentation.netlify.app/names/hindu/arjun</loc>
+    <loc>https://nameverseapidocumentation.netlify.app/names/christian/james</loc>
     <lastmod>2025-12-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
+    <loc>https://nameverseapidocumentation.netlify.app/names/christian/elizabeth</loc>
+    <lastmod>2025-12-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://nameverseapidocumentation.netlify.app/names/christian/michael</loc>
+    <lastmod>2025-12-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://nameverseapidocumentation.netlify.app/names/christian/sarah</loc>
+    <lastmod>2025-12-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Hindu Names -->
+  <url>
+    <loc>https://nameverseapidocumentation.netlify.app/names/hindu/arjun</loc>
+    <lastmod>2025-12-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://nameverseapidocumentation.netlify.app/names/hindu/priya</loc>
+    <lastmod>2025-12-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://nameverseapidocumentation.netlify.app/names/hindu/aditya</loc>
+    <lastmod>2025-12-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://nameverseapidocumentation.netlify.app/names/hindu/ananya</loc>
+    <lastmod>2025-12-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://nameverseapidocumentation.netlify.app/names/hindu/rohan</loc>
+    <lastmod>2025-12-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://nameverseapidocumentation.netlify.app/names/hindu/kavya</loc>
     <lastmod>2025-12-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

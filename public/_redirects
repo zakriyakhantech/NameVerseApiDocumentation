@@ -1,10 +1,2 @@
-/api/*             https://namverse-api.vercel.app/api/:splat  200
-/docs              /docs/Docs.html       200
-/blog              /docs/Blog.html       200
-/getnames          /src/getnames.html    200
-/getnamesbysearch  /src/getnamesbysearch.html  200
-/getnamesbyletter  /src/getnamesbyletter.html  200
-/getnamesbyreligion /src/getnamesbyreligion.html  200
-/getfilteroptions  /src/getfilters.html  200
-/names/:religion/:slug  /src/getnamesbyslug.html  200
-/*                 /index.html           200
+# This file is for Netlify only. Vercel uses vercel.json instead.
+# Keep this for reference but Vercel will use vercel.json configuration
